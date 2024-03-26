@@ -1,4 +1,4 @@
-package es.unican.aitor;
+package pojos;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -125,7 +125,7 @@ public class Usuario {
 		int anhoActual = calendario.get(Calendar.YEAR);
 		int mesActual = calendario.get(Calendar.MONTH);
 		
-		Factura ultimaFactura = facturas.get(-1);
+		Factura ultimaFactura = facturas.get(facturas.size()-1);
 		calendario.setTime(ultimaFactura.getFecha());
 		int anhoFactura = calendario.get(Calendar.YEAR);
 		int mesFactura = calendario.get(Calendar.MONTH);

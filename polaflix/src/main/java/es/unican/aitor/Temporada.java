@@ -1,4 +1,4 @@
-package es.unican.aitor;
+package pojos;
 
 import java.util.Objects;
 import java.util.Set;

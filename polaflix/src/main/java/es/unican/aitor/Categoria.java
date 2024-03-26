@@ -1,4 +1,4 @@
-package es.unican.aitor;
+package pojos;
 
 public enum Categoria {
 	ESTANDAR, SILVER, GOLD

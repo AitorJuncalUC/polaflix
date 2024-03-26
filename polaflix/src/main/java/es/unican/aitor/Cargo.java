@@ -1,4 +1,4 @@
-package es.unican.aitor;
+package pojos;
 
 import java.util.Date;
 import java.util.Objects;
@@ -12,6 +12,17 @@ public class Cargo {
 	public Cargo(Date fecha, Capitulo capitulo) {
 		this.fecha = fecha;
 		this.capitulo = capitulo;
+	}
+	
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public double getPrecio() {
 		Categoria c = capitulo.getTemporada().getSerie().getCategoria();
 		switch(c) {
 			case ESTANDAR:
@@ -26,17 +37,6 @@ public class Cargo {
 			default:
 				break;
 		}
-	}
-	
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-
-	public double getPrecio() {
 		return precio;
 	}
 
