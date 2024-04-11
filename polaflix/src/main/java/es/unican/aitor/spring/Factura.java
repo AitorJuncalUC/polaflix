@@ -4,11 +4,29 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Factura {
 	private Date fecha;
 	private double importeTotal;
+	
+	@EmbeddedId
+	private FacturaID id;
+	
+	@OneToMany(cascade = CascadeType.ALL)
 	private ArrayList<Cargo> cargos;
+	
+	@ManyToOne
 	private Usuario usuario;
+	
+	protected Factura() {
+		
+	}
 	
 	public Factura(Date fecha, ArrayList<Cargo> cargos, Usuario usuario) {
 		this.fecha = fecha;
@@ -47,6 +65,14 @@ public class Factura {
 
 	public void setImporteTotal(double importeTotal) {
 		this.importeTotal = importeTotal;
+	}
+	
+	public FacturaID getId() {
+		return id;
+	}
+
+	public void setId(FacturaID id) {
+		this.id = id;
 	}
 	
 	public double calculaImporteTotal() {

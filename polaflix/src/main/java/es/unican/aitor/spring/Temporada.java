@@ -3,11 +3,30 @@ package es.unican.aitor.spring;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Temporada {
 	private int numero;
+	
+	@EmbeddedId
+    private TemporadaID id;
+	
+	@ManyToOne
 	private Serie serie;
+	
+	@OneToMany(mappedBy = "temporada", cascade = CascadeType.ALL)
 	private Set<Capitulo> capitulos;
-
+	
+	
+	protected Temporada() {
+		
+	}
+	
 	public Temporada(int numero, Serie serie) {
 		this.numero = numero;
 		this.serie = serie;
@@ -39,6 +58,14 @@ public class Temporada {
 
 	public Set<Capitulo> getCapitulos() {
 		return capitulos;
+	}
+
+	public TemporadaID getId() {
+		return id;
+	}
+
+	public void setId(TemporadaID id) {
+		this.id = id;
 	}
 
 	@Override

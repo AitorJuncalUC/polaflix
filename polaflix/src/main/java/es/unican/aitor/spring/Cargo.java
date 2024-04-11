@@ -3,10 +3,22 @@ package es.unican.aitor.spring;
 import java.util.Date;
 import java.util.Objects;
 
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Cargo {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idCargo;
 	private Date fecha;
 	private double precio;
+	
+	@Embedded
 	private Capitulo capitulo;
 	
 	public Cargo(Date fecha, Capitulo capitulo) {

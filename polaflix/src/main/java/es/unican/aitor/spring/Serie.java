@@ -5,14 +5,41 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
+
+@Entity
 public class Serie {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idSerie;
 	private String titulo;
 	private String sinopsis;
+	
+	@Embedded
 	private Categoria categoria;
+	
+	@OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
+	@OrderBy("numero")
 	private Set<Temporada> temporadas;
+	
+	@ElementCollection
 	private ArrayList<String> actores;
+	
+	@ElementCollection
 	private ArrayList<String> autores;
+	
+	
+	protected Serie() {
+		
+	}
 	
 	public Serie(String titulo, String sinopsis, Categoria categoria, HashSet<Temporada> temporadas,
 			ArrayList<String> actores, ArrayList<String> autores) {

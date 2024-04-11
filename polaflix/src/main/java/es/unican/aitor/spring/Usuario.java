@@ -5,19 +5,42 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Usuario {
+	@Id
 	private String nombre;
+	
 	private String contrasenha;
 	private String IBAN;
 	private boolean premium;
+	
+	@OneToMany()
 	private Set<Serie> seriesPendientes;
+	
+	@OneToMany()
 	private Set<Serie> seriesEmpezadas;
+	
+	@OneToMany()
 	private Set<Serie> seriesTerminadas;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@OrderBy("fecha")
 	private List<Factura> facturas;
+	
+	@OneToMany()
 	private Set<Capitulo> capitulosVistos;
+	
+	
+	protected Usuario() {
+		
+	}
 	
 	public Usuario(String nombre, String contrasenha, String iBAN, boolean premium) {
 		this.nombre = nombre;

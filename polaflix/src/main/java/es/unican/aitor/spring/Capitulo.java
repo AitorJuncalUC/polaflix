@@ -2,11 +2,26 @@ package es.unican.aitor.spring;
 
 import java.util.Objects;
 
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Capitulo {
 	private String titulo;
 	private int numero;
+	
+	@EmbeddedId
+    private CapituloID id;
+	
 	private String descripcion;
+	
+	@ManyToOne
 	private Temporada temporada;
+	
+	protected Capitulo() {
+		
+	}
 	
 	public Capitulo(String titulo, int numero, String descripcion, Temporada temporada) {
 		this.titulo = titulo;
@@ -45,6 +60,14 @@ public class Capitulo {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public CapituloID getId() {
+		return id;
+	}
+
+	public void setId(CapituloID id) {
+		this.id = id;
 	}
 
 	@Override
