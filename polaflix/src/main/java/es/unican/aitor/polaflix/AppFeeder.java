@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import es.unican.aitor.polaflix.dominio.*;
 import es.unican.aitor.polaflix.repositorios.*;
-import es.unican.aitor.polaflix.spring.*;
 
 @Component
 public class AppFeeder implements CommandLineRunner {
