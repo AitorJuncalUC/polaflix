@@ -1,7 +1,6 @@
 package es.unican.aitor.polaflix.pojos;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -14,7 +13,7 @@ public class Serie {
 	private ArrayList<String> actores;
 	private ArrayList<String> autores;
 	
-	public Serie(String titulo, String sinopsis, Categoria categoria, HashSet<Temporada> temporadas,
+	public Serie(String titulo, String sinopsis, Categoria categoria, Set<Temporada> temporadas,
 			ArrayList<String> actores, ArrayList<String> autores) {
 		this.titulo = titulo;
 		this.sinopsis = sinopsis;

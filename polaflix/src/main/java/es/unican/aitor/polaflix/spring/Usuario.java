@@ -101,6 +101,10 @@ public class Usuario {
 	public List<Factura> getFacturas() {
 		return facturas;
 	}
+	
+	public void anhadeFactura(Factura f) {
+		facturas.add(f);
+	}
 
 	public Set<Capitulo> getCapitulosVistos() {
 		return capitulosVistos;

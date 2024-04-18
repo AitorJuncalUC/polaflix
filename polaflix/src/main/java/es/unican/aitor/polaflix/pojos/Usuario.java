@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -77,6 +79,10 @@ public class Usuario {
 
 	public List<Factura> getFacturas() {
 		return facturas;
+	}
+	
+	public void anhadeFactura(Factura f) {
+		facturas.add(f);
 	}
 
 	public Set<Capitulo> getCapitulosVistos() {

@@ -8,9 +8,10 @@ public class Temporada {
 	private Serie serie;
 	private Set<Capitulo> capitulos;
 
-	public Temporada(int numero, Serie serie) {
+	public Temporada(int numero, Serie serie, Set<Capitulo> capitulos) {
 		this.numero = numero;
 		this.serie = serie;
+		this.capitulos = capitulos;
 	}
 
 	public Serie getSerie() {
