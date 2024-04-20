@@ -21,20 +21,20 @@ public class Usuario {
 	private String IBAN;
 	private boolean premium;
 	
-	@OneToMany()
+	@ManyToMany()
 	private Set<Serie> seriesPendientes;
 	
-	@OneToMany()
+	@ManyToMany()
 	private Set<Serie> seriesEmpezadas;
 	
-	@OneToMany()
+	@ManyToMany()
 	private Set<Serie> seriesTerminadas;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@OrderBy("fecha")
 	private List<Factura> facturas;
 	
-	@OneToMany()
+	@ManyToMany()
 	private Set<Capitulo> capitulosVistos;
 	
 	
@@ -151,21 +151,29 @@ public class Usuario {
 		calendario.setTime(ahora);
 		int anhoActual = calendario.get(Calendar.YEAR);
 		int mesActual = calendario.get(Calendar.MONTH);
-		
-		Factura ultimaFactura = facturas.get(facturas.size()-1);
-		calendario.setTime(ultimaFactura.getFecha());
-		int anhoFactura = calendario.get(Calendar.YEAR);
-		int mesFactura = calendario.get(Calendar.MONTH);
-		
-		Cargo cargo = new Cargo(ahora, c);
-		if(anhoFactura != anhoActual || mesFactura != mesActual) {
+		if(facturas.size() > 0) {
+			Factura ultimaFactura = facturas.get(facturas.size()-1);
+			calendario.setTime(ultimaFactura.getFecha());
+			int anhoFactura = calendario.get(Calendar.YEAR);
+			int mesFactura = calendario.get(Calendar.MONTH);
+			
+			Cargo cargo = new Cargo(ahora, c);
+			if(anhoFactura != anhoActual || mesFactura != mesActual) {
+				ArrayList<Cargo> cargos = new ArrayList<Cargo>();
+				cargos.add(cargo);
+				Factura factura = new Factura(ahora, cargos, this);
+				facturas.add(factura);
+			}
+			else {
+				ultimaFactura.anhadeCargo(cargo);
+			}
+		}
+		else {
+			Cargo cargo = new Cargo(ahora, c);
 			ArrayList<Cargo> cargos = new ArrayList<Cargo>();
 			cargos.add(cargo);
 			Factura factura = new Factura(ahora, cargos, this);
 			facturas.add(factura);
-		}
-		else {
-			ultimaFactura.anhadeCargo(cargo);
 		}
 	}
 

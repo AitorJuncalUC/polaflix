@@ -67,7 +67,7 @@ public class Capitulo {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(numero, temporada);
+		return Objects.hash(idCapitulo);
 	}
 
 	@Override
@@ -79,6 +79,6 @@ public class Capitulo {
 		if (getClass() != obj.getClass())
 			return false;
 		Capitulo other = (Capitulo) obj;
-		return numero == other.numero && Objects.equals(temporada, other.temporada);
+		return idCapitulo == other.idCapitulo;
 	}
 }

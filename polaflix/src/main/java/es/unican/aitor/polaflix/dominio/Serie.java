@@ -2,7 +2,6 @@ package es.unican.aitor.polaflix.dominio;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
@@ -12,7 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OrderBy;
+
 
 @Entity
 public class Serie {
@@ -26,8 +25,7 @@ public class Serie {
 	private Categoria categoria;
 	
 	@OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
-	@OrderBy("numero")
-	private Set<Temporada> temporadas;
+	private List<Temporada> temporadas;
 	
 	@ElementCollection
 	private List<String> actores;
@@ -40,7 +38,7 @@ public class Serie {
 		
 	}
 	
-	public Serie(String titulo, String sinopsis, Categoria categoria, Set<Temporada> temporadas,
+	public Serie(String titulo, String sinopsis, Categoria categoria, List<Temporada> temporadas,
 			List<String> actores, List<String> autores) {
 		this.titulo = titulo;
 		this.sinopsis = sinopsis;
@@ -66,7 +64,7 @@ public class Serie {
 		this.autores = autores;
 	}
 
-	public Set<Temporada> getTemporadas() {
+	public List<Temporada> getTemporadas() {
 		return temporadas;
 	}
 

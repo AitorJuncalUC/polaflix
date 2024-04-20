@@ -1,7 +1,7 @@
 package es.unican.aitor.polaflix.dominio;
 
 import java.util.Objects;
-import java.util.Set;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -23,14 +23,14 @@ public class Temporada {
 	private Serie serie;
 	
 	@OneToMany(mappedBy = "temporada", cascade = CascadeType.ALL)
-	private Set<Capitulo> capitulos;
+	private List<Capitulo> capitulos;
 	
 	
 	protected Temporada() {
 		
 	}
 	
-	public Temporada(int numero, Serie serie, Set<Capitulo> capitulos) {
+	public Temporada(int numero, Serie serie, List<Capitulo> capitulos) {
 		this.numero = numero;
 		this.serie = serie;
 		this.capitulos = capitulos;
@@ -42,10 +42,6 @@ public class Temporada {
 
 	public void setSerie(Serie serie) {
 		this.serie = serie;
-	}
-
-	public void setCapitulos(Set<Capitulo> capitulos) {
-		this.capitulos = capitulos;
 	}
 
 	public int getNumero() {
@@ -60,13 +56,13 @@ public class Temporada {
 		capitulos.add(c);
 	}
 
-	public Set<Capitulo> getCapitulos() {
+	public List<Capitulo> getCapitulos() {
 		return capitulos;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(numero, serie);
+		return Objects.hash(idTemporada);
 	}
 
 	@Override
@@ -78,7 +74,7 @@ public class Temporada {
 		if (getClass() != obj.getClass())
 			return false;
 		Temporada other = (Temporada) obj;
-		return numero == other.numero && Objects.equals(serie, other.serie);
+		return idTemporada == other.idTemporada;
 	}
 	
 	

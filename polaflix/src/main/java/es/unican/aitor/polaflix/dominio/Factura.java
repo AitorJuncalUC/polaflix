@@ -76,7 +76,7 @@ public class Factura {
 	
 	public double calculaImporteTotal() {
 		boolean premium = usuario.isPremium();
-		if (premium) { return 20.0; }
+		if (premium) { this.importeTotal = 20.0 ; return this.importeTotal; }
 		for(Cargo c : cargos) {
 			importeTotal += c.getPrecio();
 		}
@@ -85,7 +85,7 @@ public class Factura {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(fecha, usuario);
+		return Objects.hash(idFactura);
 	}
 
 	@Override
@@ -97,6 +97,6 @@ public class Factura {
 		if (getClass() != obj.getClass())
 			return false;
 		Factura other = (Factura) obj;
-		return Objects.equals(fecha, other.fecha) && Objects.equals(usuario, other.usuario);
+		return idFactura == other.idFactura;
 	}
 }
