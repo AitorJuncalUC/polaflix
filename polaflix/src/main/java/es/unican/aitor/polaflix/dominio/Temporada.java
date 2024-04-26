@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 
 @Entity
 public class Temporada {
@@ -23,6 +24,7 @@ public class Temporada {
 	private Serie serie;
 	
 	@OneToMany(mappedBy = "temporada", cascade = CascadeType.ALL)
+	@OrderBy("numero")
 	private List<Capitulo> capitulos;
 	
 	

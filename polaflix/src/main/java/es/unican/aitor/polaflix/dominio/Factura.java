@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 
 @Entity
 public class Factura {
@@ -22,6 +23,7 @@ public class Factura {
 	private int idFactura;
 	
 	@OneToMany(cascade = CascadeType.ALL)
+	@OrderBy("fecha")
 	private List<Cargo> cargos;
 	
 	@ManyToOne

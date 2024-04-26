@@ -30,7 +30,7 @@ public class Usuario {
 	@ManyToMany()
 	private Set<Serie> seriesTerminadas;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL)
 	@OrderBy("fecha")
 	private List<Factura> facturas;
 	
