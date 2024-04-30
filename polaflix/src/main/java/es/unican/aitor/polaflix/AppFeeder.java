@@ -29,7 +29,6 @@ public class AppFeeder implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		feedSeries();
 		feedUsuarios();
-		testUsuario();
 		
 		System.out.println("Application feeded");
 	}
@@ -140,10 +139,4 @@ public class AppFeeder implements CommandLineRunner {
 		sr.save(s1);
 		sr.save(s2);
 	}
-
-	
-	private void testUsuario() {
-		
-	}
-
 }
