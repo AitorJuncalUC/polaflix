@@ -1,8 +1,149 @@
+Recurso : /usuarios/{nombre}
+Verbos Aceptados: GET
+Get /usuario/{nombre} - Devuelve el usuario con dicho nombre(devuelve una lista de sus series pendientes, empezadas y terminadas)
+Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Request
+Modelo de Respuesta:
+[
+	{
+		"nombre": "Paco",
+		"contrasenha": "1234",
+		"iban": "iban",
+		"premium": false,
+		"seriesPendientes": [],
+		"seriesEmpezadas": 
+		[
+			{
+				"id": 0,
+        		"titulo": "Stranger things"
+			},
+			{
+				"id":1,
+				"titulo": "Peaky Blinders"
+			}
+		],
+		"seriesTerminadas": [],
+		"capitulosVistos": []
+	},
+	{
+		"nombre": "Lola",
+		"contrasenha": "12345",
+		"iban": "iban2",
+		"premium": true,
+		"seriesPendientes": 
+		[
+			{
+				"id":1,
+				"titulo": "Peaky Blinders"
+			}
+		],
+		"seriesEmpezadas": 
+		[
+			{
+				"id": 0,
+        		"titulo": "Stranger things"
+			}
+		],
+		"seriesTerminadas": [],
+		"capitulosVistos": []
+	}
+]
+
+
+Recurso : /usuarios/{nombre}/facturas
+Verbos Aceptados: GET
+Get /usuario/{nombre} - Devuelve todas las facturas del usuario con dicho nombre. O una sola factura si se pasa una fecha como filtro.
+Parámetros:
+	-Fecha.
+Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Request
+Modelo de Respuesta:
+[
+	{ 
+		"nombreUsuario": "Paco",
+		"fecha": "Mayo 2024",
+		"importeTotal": 1.25,
+		"cargos": 
+		[
+			{
+			"fecha":"1/05/2024",
+			"serie": "Stranger things",
+			"temporada": 1,
+			"capitulo": 1,
+			"precio": 0.25
+			},
+			{
+			"fecha":"2/05/2024",
+			"serie": "Peaky blinders",
+			"temporada": 1,
+			"capitulo": 1,
+			"precio": 0.75
+			}	
+		]
+	}
+]
+
+
+Recurso: /usuario/{nombre}/seriesPendientes/{id}
+Verbos Aceptados: PUT
+PUT /serie - Añade una serie del catalo a la lista de seriesPendientes del usuario.
+Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Request
+Modelo de Respuesta:
+[
+	{
+		"id": 1,
+    	"titulo": "Peaky blinders",
+    	"sinopsis": "sigue a la familia Shelby, encabezada por el carismático "
+			+ "gánster Thomas Shelby, mientras ascienden en el mundo criminal de Birmingham "
+			+ "después de la Primera Guerra Mundial."
+    	"categoria": "SILVER",
+    	"autores": ["Steven Knight"],
+    	"actores": ["Cillian Murphy", "Paul Anderson", "Joe Cole"]
+	}
+]
+
+Recurso: /usuario/{nombre}/capitulosVistos
+Verbos Aceptados: GET
+PUT /serie - Devuelve los capítulos vistos.
+Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Request
+Modelo de Respuesta:
+[
+	{
+		"id": 0,
+    	"serie": "Peaky blinders",
+    	"temporada" : 1,
+		"capitulo" : 1,
+		"titulo" : "Episodio 1"
+	},
+	{	"id": 1,
+    	"serie": "Peaky blinders",
+    	"temporada" : 1,
+		"capitulo" : 3,
+		"titulo : "Episodio 3"
+	}
+]
+
+Recurso: /usuario/{nombre}/capitulosVistos/{id}
+Verbos Aceptados: PUT
+PUT /serie - Marca un capítulo como visto
+Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Request
+Modelo de Respuesta:
+[
+	{
+		"id": 0,
+    	"serie": "Peaky blinders",
+    	"temporada" : 1,
+		"capitulo" : 1,
+		"titulo" : "Episodio 1"
+	}
+]
+
+
 Recurso: /series
 Verbos Aceptados: GET
-GET	/serie - Devuelve todas las series. Si hay título como parámetro, devuelve dicha serie unicamente
+GET	/serie - Devuelve todas las series. Si hay título como parámetro, devuelve dicha serie unicamente. Si se pasa una incial, devuelve todas las letras que empiecen por
+			 esa inicial.
 Parámetros:
 	Titulo  - titulo de la serie
+	Inicial - inicial de la serie.
 Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Request
 Modelo de Respuesta:
 [
@@ -76,7 +217,7 @@ Modelo de Respuesta:
 				+ "después de la Primera Guerra Mundial."
         "categoria": "SILVER",
         "autores": ["Steven Knight"],
-        "actores": ["Cillian Murphy", "Paul Anderson", "Joe Cole"]
+        "actores": ["Cillian Murphy", "Paul Anderson", "Joe Cole"],
         "temporadas": 
 		[
             {
@@ -146,7 +287,7 @@ Modelo de Respuesta:
 		+ "después de la Primera Guerra Mundial."
     "categoria": "SILVER",
     "autores": ["Steven Knight"],
-    "actores": ["Cillian Murphy", "Paul Anderson", "Joe Cole"]
+    "actores": ["Cillian Murphy", "Paul Anderson", "Joe Cole"],
     "temporadas": 
 	[
         {
