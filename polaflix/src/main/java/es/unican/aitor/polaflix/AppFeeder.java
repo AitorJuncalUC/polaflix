@@ -55,12 +55,12 @@ public class AppFeeder implements CommandLineRunner {
 		u1.anhadeSerie(s1); u1.anhadeSerie(s2);
 		u1.comenzarSerie(s1); u1.comenzarSerie(s2);
 		u1.verCapitulo(c1); u1.verCapitulo(c2);
-		double importe_u1 = u1.verFactura(anhoActual, mesActual);
+		Factura f1 = u1.verFactura(anhoActual, mesActual);
 		
 		u2.anhadeSerie(s1); u2.anhadeSerie(s2);
 		u2.comenzarSerie(s1);
 		u2.verCapitulo(c1);
-		double importe_u2 = u2.verFactura(anhoActual, mesActual);
+		Factura f2 = u2.verFactura(anhoActual, mesActual);
 		
 		
 		//Guarda usuarios

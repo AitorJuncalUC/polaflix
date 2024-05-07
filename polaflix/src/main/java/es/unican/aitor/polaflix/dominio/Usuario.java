@@ -110,7 +110,7 @@ public class Usuario {
 		return capitulosVistos;
 	}
 	
-	public double verFactura(int anho, int mes) {
+	public Factura verFactura(int anho, int mes) {
 		Factura factura = null;
 		Calendar calendario = Calendar.getInstance();
 		int anhoFactura;
@@ -124,8 +124,7 @@ public class Usuario {
 				break;
 			}
 		}
-		double importe = factura.calculaImporteTotal();
-		return importe;
+		return factura;
 	}
 	
 	

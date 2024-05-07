@@ -16,7 +16,6 @@ import jakarta.persistence.OrderBy;
 @Entity
 public class Factura {
 	private Date fecha;
-	private double importeTotal;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,7 +35,6 @@ public class Factura {
 	public Factura(Date fecha, List<Cargo> cargos, Usuario usuario) {
 		this.fecha = fecha;
 		this.cargos = cargos;
-		this.importeTotal = 0.0;
 		this.usuario = usuario;
 	}
 
@@ -67,18 +65,11 @@ public class Factura {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-
-	public double getImporteTotal() {
-		return importeTotal;
-	}
-
-	public void setImporteTotal(double importeTotal) {
-		this.importeTotal = importeTotal;
-	}
 	
 	public double calculaImporteTotal() {
+		double importeTotal = 0.0;
 		boolean premium = usuario.isPremium();
-		if (premium) { this.importeTotal = 20.0 ; return this.importeTotal; }
+		if (premium) { return 20.0; }
 		for(Cargo c : cargos) {
 			importeTotal += c.getPrecio();
 		}
