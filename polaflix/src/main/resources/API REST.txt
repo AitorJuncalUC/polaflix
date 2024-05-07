@@ -1,7 +1,7 @@
 Recurso : /usuarios/{nombre}
 Verbos Aceptados: GET
 Get /usuario/{nombre} - Devuelve el usuario con dicho nombre(devuelve una lista de sus series pendientes, empezadas y terminadas)
-Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Request
+Respuestas: 200 Ok, 404 Not Found
 Modelo de Respuesta:
 [
 	{
@@ -54,7 +54,7 @@ Verbos Aceptados: GET
 Get /usuario/{nombre} - Devuelve todas las facturas del usuario con dicho nombre. O una sola factura si se pasa una fecha como filtro.
 Parámetros:
 	-Fecha.
-Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Request
+Respuestas: 200 Ok, 404 Not Found
 Modelo de Respuesta:
 [
 	{ 
@@ -85,7 +85,7 @@ Modelo de Respuesta:
 Recurso: /usuario/{nombre}/seriesPendientes/{id}
 Verbos Aceptados: PUT
 PUT /serie - Añade una serie del catalo a la lista de seriesPendientes del usuario.
-Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Request
+Respuestas: 200 Ok, 404 Not Found
 Modelo de Respuesta:
 [
 	{
@@ -103,7 +103,7 @@ Modelo de Respuesta:
 Recurso: /usuario/{nombre}/capitulosVistos
 Verbos Aceptados: GET
 PUT /serie - Devuelve los capítulos vistos.
-Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Request
+Respuestas: 200 Ok, 400 Bad Request
 Modelo de Respuesta:
 [
 	{
@@ -121,10 +121,11 @@ Modelo de Respuesta:
 	}
 ]
 
-Recurso: /usuario/{nombre}/capitulosVistos/{id}
+Recurso: /usuario/{nombre}/capitulosVistos
 Verbos Aceptados: PUT
 PUT /serie - Marca un capítulo como visto
-Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Request
+Parametros : Capitulo en cuestión a visualizar
+Respuestas: 200 Ok, 404 Not Found
 Modelo de Respuesta:
 [
 	{
@@ -144,7 +145,8 @@ GET	/serie - Devuelve todas las series. Si hay título como parámetro, devuelve
 Parámetros:
 	Titulo  - titulo de la serie
 	Inicial - inicial de la serie.
-Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Request
+	Nota : Solo uno de los parametros puede utilizarse
+Respuestas: 200 Ok, 400 Bad Request
 Modelo de Respuesta:
 [
     { 
@@ -277,7 +279,7 @@ Modelo de Respuesta:
 Recurso: /series/{id}
 Verbos HTTP aceptados: GET
 GET /series/{id} - devuelve la serie con dicho id 
-Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Request
+Respuestas: 200 Ok, 404 Not Found
 Modelo de Respuesta:
 { 
 	"id": 1,

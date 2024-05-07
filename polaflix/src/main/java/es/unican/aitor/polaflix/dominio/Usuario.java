@@ -1,10 +1,8 @@
 package es.unican.aitor.polaflix.dominio;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 
 import java.util.ArrayList;
@@ -22,20 +20,20 @@ public class Usuario {
 	private boolean premium;
 	
 	@ManyToMany()
-	private Set<Serie> seriesPendientes;
+	private List<Serie> seriesPendientes;
 	
 	@ManyToMany()
-	private Set<Serie> seriesEmpezadas;
+	private List<Serie> seriesEmpezadas;
 	
 	@ManyToMany()
-	private Set<Serie> seriesTerminadas;
+	private List<Serie> seriesTerminadas;
 	
 	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL)
 	@OrderBy("fecha")
 	private List<Factura> facturas;
 	
 	@ManyToMany()
-	private Set<Capitulo> capitulosVistos;
+	private List<Capitulo> capitulosVistos;
 	
 	
 	protected Usuario() {
@@ -47,11 +45,11 @@ public class Usuario {
 		this.contrasenha = contrasenha;
 		this.IBAN = iBAN;
 		this.premium = premium;
-		this.seriesPendientes = new HashSet<Serie>();
-		this.seriesEmpezadas = new HashSet<Serie>();
-		this.seriesTerminadas = new HashSet<Serie>();
+		this.seriesPendientes = new ArrayList<Serie>();
+		this.seriesEmpezadas = new ArrayList<Serie>();
+		this.seriesTerminadas = new ArrayList<Serie>();
 		this.facturas = new ArrayList<Factura>();
-		this.capitulosVistos = new HashSet<Capitulo>();
+		this.capitulosVistos = new ArrayList<Capitulo>();
 	}
 
 	public String getNombre() {
@@ -86,15 +84,15 @@ public class Usuario {
 		this.premium = premium;
 	}
 	
-	public Set<Serie> getSeriesPendientes() {
+	public List<Serie> getSeriesPendientes() {
 		return seriesPendientes;
 	}
 
-	public Set<Serie> getSeriesEmpezadas() {
+	public List<Serie> getSeriesEmpezadas() {
 		return seriesEmpezadas;
 	}
 
-	public Set<Serie> getSeriesTerminadas() {
+	public List<Serie> getSeriesTerminadas() {
 		return seriesTerminadas;
 	}
 
@@ -106,7 +104,7 @@ public class Usuario {
 		facturas.add(f);
 	}
 
-	public Set<Capitulo> getCapitulosVistos() {
+	public List<Capitulo> getCapitulosVistos() {
 		return capitulosVistos;
 	}
 	

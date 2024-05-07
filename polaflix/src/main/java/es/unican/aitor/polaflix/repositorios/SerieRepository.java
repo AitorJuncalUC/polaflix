@@ -6,6 +6,6 @@ import es.unican.aitor.polaflix.dominio.Serie;
 
 
 public interface SerieRepository extends JpaRepository<Serie, Integer>{
-
+	public Serie findByTitulo(String nombre);
 }
 
