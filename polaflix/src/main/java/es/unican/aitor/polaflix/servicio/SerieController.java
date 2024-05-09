@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import es.unican.aitor.polaflix.dominio.Serie;
 
 
@@ -22,6 +24,7 @@ public class SerieController {
 	SerieService ss;
 	
 	@GetMapping()
+	@JsonView({Views.SerieView.class})
 	public ResponseEntity<List<Serie>> getSeries(@RequestParam(required = false) String titulo,
 													@RequestParam(required = false) String inicial) {
 		List<Serie> series = new ArrayList<Serie>();
@@ -42,6 +45,7 @@ public class SerieController {
 	}
 	
 	@GetMapping("/{id}")
+	@JsonView({Views.SerieView.class})
 	public ResponseEntity<Optional<Serie>> getSerie(@PathVariable int id) {
 		Optional<Serie> serie = ss.getSerieById(id);
 		if(serie == null) {

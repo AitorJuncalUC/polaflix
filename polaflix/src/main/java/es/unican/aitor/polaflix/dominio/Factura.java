@@ -4,6 +4,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.aitor.polaflix.servicio.Views;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,16 +20,21 @@ import jakarta.persistence.OrderBy;
 @Entity
 public class Factura {
 	private Date fecha;
+	private double importeTotal;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idFactura;
+	private int id;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@OrderBy("fecha")
+	@JsonView({Views.FacturaView.class})
 	private List<Cargo> cargos;
 	
+	
+	
 	@ManyToOne
+	@JsonBackReference
 	private Usuario usuario;
 	
 	protected Factura() {
@@ -36,6 +45,13 @@ public class Factura {
 		this.fecha = fecha;
 		this.cargos = cargos;
 		this.usuario = usuario;
+		if(usuario.isPremium()) {
+			this.importeTotal = 20.0;
+		}
+		else {
+			this.importeTotal = 0.0;
+		}
+		
 	}
 
 	public Usuario getUsuario() {
@@ -53,32 +69,27 @@ public class Factura {
 	public void setCargos(List<Cargo> cargos) {
 		this.cargos = cargos;
 	}
-
+	
+	public double getImporteTotal() {
+		return importeTotal;
+	}
+	
 	public void anhadeCargo(Cargo cargo) {
+		this.importeTotal += cargo.getPrecio();
 		cargos.add(cargo);
 	}
 
 	public Date getFecha() {
 		return fecha;
 	}
-
+	
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 	
-	public double calculaImporteTotal() {
-		double importeTotal = 0.0;
-		boolean premium = usuario.isPremium();
-		if (premium) { return 20.0; }
-		for(Cargo c : cargos) {
-			importeTotal += c.getPrecio();
-		}
-		return importeTotal;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(idFactura);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -90,6 +101,6 @@ public class Factura {
 		if (getClass() != obj.getClass())
 			return false;
 		Factura other = (Factura) obj;
-		return idFactura == other.idFactura;
+		return id == other.id;
 	}
 }

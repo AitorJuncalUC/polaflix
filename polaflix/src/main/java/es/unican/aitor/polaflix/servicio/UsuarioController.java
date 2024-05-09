@@ -3,6 +3,7 @@ package es.unican.aitor.polaflix.servicio;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import es.unican.aitor.polaflix.dominio.Capitulo;
+import es.unican.aitor.polaflix.dominio.CapitulosVistos;
 import es.unican.aitor.polaflix.dominio.Factura;
 import es.unican.aitor.polaflix.dominio.Serie;
 import es.unican.aitor.polaflix.dominio.Usuario;
+import jakarta.transaction.Transactional;
 
 
 @RestController
@@ -27,6 +32,7 @@ public class UsuarioController {
 	private UsuarioService us;
 	
 	@GetMapping("/{nombre}")
+	@JsonView({Views.UsuarioView.class})
 	public ResponseEntity<Usuario> getUsuario(@PathVariable String nombre) {
 		Usuario usuario = us.getUsuarioByNombre(nombre);
 		if(usuario == null) {
@@ -36,6 +42,7 @@ public class UsuarioController {
 	}
 	
 	@GetMapping("/{nombre}/facturas")
+	@JsonView({Views.FacturaView.class})
     public ResponseEntity<List<Factura>> getFacturas(@PathVariable String nombre, @RequestParam(required = false) Date fecha) {
 		List<Factura> facturas = new ArrayList<Factura>();
         if(fecha == null) {
@@ -54,8 +61,9 @@ public class UsuarioController {
     }
 	
 	@GetMapping("/{nombre}/capitulosVistos")
-	public ResponseEntity<List<Capitulo>> getCapitulosVistos(@PathVariable String nombre) {
-		List<Capitulo> capitulos = us.getCapitulosVistos(nombre);
+	@JsonView({Views.CapituloVistoView.class})
+	public ResponseEntity<Map<Long, CapitulosVistos>> getCapitulosVistos(@PathVariable String nombre) {
+		Map<Long, CapitulosVistos> capitulos = us.getCapitulosVistos(nombre);
 		if (capitulos == null) {
 			return ResponseEntity.badRequest().build();
         }
@@ -65,6 +73,8 @@ public class UsuarioController {
 	}
 	
 	@PutMapping("/{nombre}/capitulosVistos")
+	@JsonView({Views.CapituloVistoView.class})
+	@Transactional
 	public ResponseEntity<Usuario> verCapitulo(@PathVariable String nombre, 
 																		@PathVariable Capitulo capitulo) {
 		us.addCapituloVisto(nombre, capitulo);
@@ -77,6 +87,8 @@ public class UsuarioController {
 	}
 	
 	@PutMapping("/{nombre}/seriesEmpezadas")
+	@JsonView({Views.UsuarioView.class})
+	@Transactional
 	public ResponseEntity<Usuario> anhadeSerie(@PathVariable String nombre, 
 																		@PathVariable Serie serie) {
 		us.addSeriePendiente(nombre, serie);

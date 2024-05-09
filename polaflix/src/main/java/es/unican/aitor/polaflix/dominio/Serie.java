@@ -3,6 +3,9 @@ package es.unican.aitor.polaflix.dominio;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.aitor.polaflix.servicio.Views;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Embedded;
@@ -18,21 +21,28 @@ import jakarta.persistence.OrderBy;
 public class Serie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idSerie;
+	@JsonView({Views.SerieView.class, Views.UsuarioView.class})
+	private Long id;
+	@JsonView({Views.SerieView.class, Views.UsuarioView.class, Views.CapituloVistoView.class})
 	private String titulo;
+	@JsonView({Views.SerieView.class})
 	private String sinopsis;
 	
 	@Embedded
+	@JsonView({Views.SerieView.class})
 	private Categoria categoria;
 	
 	@OneToMany(mappedBy = "serie", cascade = CascadeType.ALL)
 	@OrderBy("numero")
+	@JsonView({Views.SerieView.class})
 	private List<Temporada> temporadas;
 	
 	@ElementCollection
+	@JsonView({Views.SerieView.class})
 	private List<String> actores;
 	
 	@ElementCollection
+	@JsonView({Views.SerieView.class})
 	private List<String> autores;
 	
 	
@@ -94,13 +104,17 @@ public class Serie {
 		this.sinopsis = sinopsis;
 	}
 	
+	public Long getId() {
+		return id;
+	}
+
 	public void anhadeTemporada(Temporada temporada) {
 		temporadas.add(temporada);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idSerie);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -112,6 +126,6 @@ public class Serie {
 		if (getClass() != obj.getClass())
 			return false;
 		Serie other = (Serie) obj;
-		return idSerie == other.idSerie;
+		return id == other.id;
 	}
 }

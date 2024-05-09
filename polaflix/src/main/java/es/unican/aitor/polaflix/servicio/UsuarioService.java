@@ -3,11 +3,13 @@ package es.unican.aitor.polaflix.servicio;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.unican.aitor.polaflix.dominio.Capitulo;
+import es.unican.aitor.polaflix.dominio.CapitulosVistos;
 import es.unican.aitor.polaflix.dominio.Factura;
 import es.unican.aitor.polaflix.dominio.Serie;
 import es.unican.aitor.polaflix.dominio.Usuario;
@@ -43,9 +45,9 @@ public class UsuarioService {
     	return factura;
 	}
 	
-	public List<Capitulo> getCapitulosVistos(String nombre) {
+	public Map<Long,CapitulosVistos> getCapitulosVistos(String nombre) {
 		Usuario usuario = getUsuarioByNombre(nombre);
-		List<Capitulo> capitulos = usuario.getCapitulosVistos();
+		Map<Long,CapitulosVistos> capitulos = usuario.getCapitulosVistos();
 		return capitulos;
 	}
 	

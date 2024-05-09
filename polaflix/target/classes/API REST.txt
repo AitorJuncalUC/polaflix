@@ -22,7 +22,6 @@ Modelo de Respuesta:
 			}
 		],
 		"seriesTerminadas": [],
-		"capitulosVistos": []
 	},
 	{
 		"nombre": "Lola",
@@ -43,8 +42,7 @@ Modelo de Respuesta:
         		"titulo": "Stranger things"
 			}
 		],
-		"seriesTerminadas": [],
-		"capitulosVistos": []
+		"seriesTerminadas": []
 	}
 ]
 
@@ -89,14 +87,25 @@ Respuestas: 200 Ok, 404 Not Found
 Modelo de Respuesta:
 [
 	{
-		"id": 1,
-    	"titulo": "Peaky blinders",
-    	"sinopsis": "sigue a la familia Shelby, encabezada por el carismático "
-			+ "gánster Thomas Shelby, mientras ascienden en el mundo criminal de Birmingham "
-			+ "después de la Primera Guerra Mundial."
-    	"categoria": "SILVER",
-    	"autores": ["Steven Knight"],
-    	"actores": ["Cillian Murphy", "Paul Anderson", "Joe Cole"]
+		"nombre": "Lola",
+		"contrasenha": "12345",
+		"iban": "iban2",
+		"premium": true,
+		"seriesPendientes": 
+		[
+			{
+				"id":1,
+				"titulo": "Peaky Blinders"
+			}
+		],
+		"seriesEmpezadas": 
+		[
+			{
+				"id": 0,
+        		"titulo": "Stranger things"
+			}
+		],
+		"seriesTerminadas": []
 	}
 ]
 
@@ -107,13 +116,12 @@ Respuestas: 200 Ok, 400 Bad Request
 Modelo de Respuesta:
 [
 	{
-		"id": 0,
     	"serie": "Peaky blinders",
     	"temporada" : 1,
 		"capitulo" : 1,
 		"titulo" : "Episodio 1"
 	},
-	{	"id": 1,
+	{	
     	"serie": "Peaky blinders",
     	"temporada" : 1,
 		"capitulo" : 3,
@@ -129,7 +137,6 @@ Respuestas: 200 Ok, 404 Not Found
 Modelo de Respuesta:
 [
 	{
-		"id": 0,
     	"serie": "Peaky blinders",
     	"temporada" : 1,
 		"capitulo" : 1,

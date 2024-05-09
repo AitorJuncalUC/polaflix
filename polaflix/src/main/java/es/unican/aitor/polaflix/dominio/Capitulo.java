@@ -2,6 +2,10 @@ package es.unican.aitor.polaflix.dominio;
 
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.aitor.polaflix.servicio.Views;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,16 +14,21 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Capitulo {
+	@JsonView({Views.SerieView.class, Views.CapituloVistoView.class})
 	private String titulo;
+	@JsonView({Views.SerieView.class, Views.CapituloVistoView.class})
 	private int numero;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idCapitulo;
+	private int id;
 	
+	@JsonView({Views.SerieView.class})
 	private String descripcion;
 	
 	@ManyToOne
+	@JsonBackReference
+	@JsonView({Views.CapituloVistoView.class})
 	private Temporada temporada;
 	
 	protected Capitulo() {
@@ -67,7 +76,7 @@ public class Capitulo {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idCapitulo);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -79,6 +88,6 @@ public class Capitulo {
 		if (getClass() != obj.getClass())
 			return false;
 		Capitulo other = (Capitulo) obj;
-		return idCapitulo == other.idCapitulo;
+		return id == other.id;
 	}
 }

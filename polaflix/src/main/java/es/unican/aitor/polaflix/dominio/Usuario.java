@@ -1,9 +1,14 @@
 package es.unican.aitor.polaflix.dominio;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.aitor.polaflix.servicio.Views;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,27 +18,36 @@ import jakarta.persistence.*;
 @Entity
 public class Usuario {
 	@Id
+	@JsonView({Views.UsuarioView.class})
 	private String nombre;
 	
+	@JsonView({Views.UsuarioView.class})
 	private String contrasenha;
+	@JsonView({Views.UsuarioView.class})
 	private String IBAN;
+	@JsonView({Views.UsuarioView.class})
 	private boolean premium;
 	
 	@ManyToMany()
+	@JsonView({Views.UsuarioView.class})
 	private List<Serie> seriesPendientes;
 	
 	@ManyToMany()
+	@JsonView({Views.UsuarioView.class})
 	private List<Serie> seriesEmpezadas;
 	
 	@ManyToMany()
+	@JsonView({Views.UsuarioView.class})
 	private List<Serie> seriesTerminadas;
 	
 	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL)
 	@OrderBy("fecha")
+	@JsonView({Views.FacturaView.class})
 	private List<Factura> facturas;
 	
-	@ManyToMany()
-	private List<Capitulo> capitulosVistos;
+	@ManyToMany(mappedBy="usuario", cascade = CascadeType.ALL)
+	@JsonView({Views.CapituloVistoView.class})
+	private Map<Long,CapitulosVistos> capitulosVistos;
 	
 	
 	protected Usuario() {
@@ -49,7 +63,7 @@ public class Usuario {
 		this.seriesEmpezadas = new ArrayList<Serie>();
 		this.seriesTerminadas = new ArrayList<Serie>();
 		this.facturas = new ArrayList<Factura>();
-		this.capitulosVistos = new ArrayList<Capitulo>();
+		this.capitulosVistos = new HashMap<Long,CapitulosVistos>();
 	}
 
 	public String getNombre() {
@@ -104,7 +118,7 @@ public class Usuario {
 		facturas.add(f);
 	}
 
-	public List<Capitulo> getCapitulosVistos() {
+	public Map<Long,CapitulosVistos> getCapitulosVistos() {
 		return capitulosVistos;
 	}
 	
@@ -135,14 +149,16 @@ public class Usuario {
 		if(seriesPendientes.contains(s)) {
 			seriesPendientes.remove(s);
 			seriesEmpezadas.add(s);
+			capitulosVistos.put(s.getId(), new CapitulosVistos(this));
 		}
 	}
 	
 	public void verCapitulo(Capitulo c) {
-		capitulosVistos.add(c);
 		Serie serie = c.getTemporada().getSerie();
+		Categoria cat = serie.getCategoria();
 		comenzarSerie(serie);
-				
+		capitulosVistos.get(serie.getId()).anhadeCapitulo(c);
+		
 		Date ahora = new Date();
 		Calendar calendario = Calendar.getInstance();
 		calendario.setTime(ahora);
@@ -154,7 +170,7 @@ public class Usuario {
 			int anhoFactura = calendario.get(Calendar.YEAR);
 			int mesFactura = calendario.get(Calendar.MONTH);
 			
-			Cargo cargo = new Cargo(ahora, c);
+			Cargo cargo = new Cargo(ahora, serie.getTitulo(), c.getTemporada().getNumero(), c.getNumero(), cat);
 			if(anhoFactura != anhoActual || mesFactura != mesActual) {
 				ArrayList<Cargo> cargos = new ArrayList<Cargo>();
 				cargos.add(cargo);
@@ -166,7 +182,7 @@ public class Usuario {
 			}
 		}
 		else {
-			Cargo cargo = new Cargo(ahora, c);
+			Cargo cargo = new Cargo(ahora, serie.getTitulo(), c.getTemporada().getNumero(), c.getNumero(), cat);
 			ArrayList<Cargo> cargos = new ArrayList<Cargo>();
 			cargos.add(cargo);
 			Factura factura = new Factura(ahora, cargos, this);

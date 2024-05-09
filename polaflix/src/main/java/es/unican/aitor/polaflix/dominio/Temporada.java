@@ -1,6 +1,12 @@
 package es.unican.aitor.polaflix.dominio;
 
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
+
+import es.unican.aitor.polaflix.servicio.Views;
+
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -14,17 +20,22 @@ import jakarta.persistence.OrderBy;
 
 @Entity
 public class Temporada {
+	@JsonView({Views.SerieView.class, Views.CapituloVistoView.class})
 	private int numero;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idTemporada;
+	@JsonView({Views.SerieView.class})
+	private Long id;
 	
 	@ManyToOne
+	@JsonBackReference 
+	@JsonView({Views.CapituloVistoView.class})
 	private Serie serie;
 	
 	@OneToMany(mappedBy = "temporada", cascade = CascadeType.ALL)
 	@OrderBy("numero")
+	@JsonView({Views.SerieView.class})
 	private List<Capitulo> capitulos;
 	
 	
@@ -64,7 +75,7 @@ public class Temporada {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idTemporada);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -76,7 +87,7 @@ public class Temporada {
 		if (getClass() != obj.getClass())
 			return false;
 		Temporada other = (Temporada) obj;
-		return idTemporada == other.idTemporada;
+		return id == other.id;
 	}
 	
 	

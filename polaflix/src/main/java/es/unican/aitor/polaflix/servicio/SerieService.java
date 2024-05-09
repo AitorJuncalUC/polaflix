@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import es.unican.aitor.polaflix.dominio.Serie;
 import es.unican.aitor.polaflix.repositorios.SerieRepository;
-import jakarta.transaction.Transactional;
 
 @Service
 public class SerieService {
