@@ -1,0 +1,351 @@
+Recurso : /usuarios/{nombre}
+Verbos Aceptados: GET
+Get /usuario/{nombre} - Devuelve el usuario con dicho nombre(devuelve una lista de sus series pendientes, empezadas y terminadas)
+Respuestas: 200 Ok, 404 Not Found
+Modelo de Respuesta:
+[
+	{
+		"nombre": "Paco",
+		"contrasenha": "1234",
+		"iban": "iban",
+		"premium": false,
+		"seriesPendientes": [],
+		"seriesEmpezadas": 
+		[
+			{
+				"id": 0,
+        		"titulo": "Stranger things"
+			},
+			{
+				"id":1,
+				"titulo": "Peaky Blinders"
+			}
+		],
+		"seriesTerminadas": [],
+	},
+	{
+		"nombre": "Lola",
+		"contrasenha": "12345",
+		"iban": "iban2",
+		"premium": true,
+		"seriesPendientes": 
+		[
+			{
+				"id":1,
+				"titulo": "Peaky Blinders"
+			}
+		],
+		"seriesEmpezadas": 
+		[
+			{
+				"id": 0,
+        		"titulo": "Stranger things"
+			}
+		],
+		"seriesTerminadas": []
+	}
+]
+
+
+Recurso : /usuarios/{nombre}/facturas
+Verbos Aceptados: GET
+Get /usuario/{nombre} - Devuelve todas las facturas del usuario con dicho nombre. O una sola factura si se pasa una fecha como filtro.
+Parámetros:
+	-Fecha.
+Respuestas: 200 Ok, 404 Not Found
+Modelo de Respuesta:
+[
+	{ 
+		"nombreUsuario": "Paco",
+		"fecha": "Mayo 2024",
+		"importeTotal": 1.25,
+		"cargos": 
+		[
+			{
+			"fecha":"1/05/2024",
+			"serie": "Stranger things",
+			"temporada": 1,
+			"capitulo": 1,
+			"precio": 0.25
+			},
+			{
+			"fecha":"2/05/2024",
+			"serie": "Peaky blinders",
+			"temporada": 1,
+			"capitulo": 1,
+			"precio": 0.75
+			}	
+		]
+	}
+]
+
+
+Recurso: /usuario/{nombre}/seriesPendientes/{id}
+Verbos Aceptados: PUT
+PUT /serie - Añade una serie del catalo a la lista de seriesPendientes del usuario.
+Respuestas: 200 Ok, 404 Not Found
+Modelo de Respuesta:
+[
+	{
+		"nombre": "Lola",
+		"contrasenha": "12345",
+		"iban": "iban2",
+		"premium": true,
+		"seriesPendientes": 
+		[
+			{
+				"id":1,
+				"titulo": "Peaky Blinders"
+			}
+		],
+		"seriesEmpezadas": 
+		[
+			{
+				"id": 0,
+        		"titulo": "Stranger things"
+			}
+		],
+		"seriesTerminadas": []
+	}
+]
+
+Recurso: /usuario/{nombre}/capitulosVistos
+Verbos Aceptados: GET
+PUT /serie - Devuelve los capítulos vistos.
+Respuestas: 200 Ok, 400 Bad Request
+Modelo de Respuesta:
+[
+	{
+    	"serie": "Peaky blinders",
+    	"temporada" : 1,
+		"capitulo" : 1,
+		"titulo" : "Episodio 1"
+	},
+	{	
+    	"serie": "Peaky blinders",
+    	"temporada" : 1,
+		"capitulo" : 3,
+		"titulo : "Episodio 3"
+	}
+]
+
+Recurso: /usuario/{nombre}/capitulosVistos
+Verbos Aceptados: PUT
+PUT /serie - Marca un capítulo como visto
+Parametros : Capitulo en cuestión a visualizar
+Respuestas: 200 Ok, 404 Not Found
+Modelo de Respuesta:
+[
+	{
+    	"serie": "Peaky blinders",
+    	"temporada" : 1,
+		"capitulo" : 1,
+		"titulo" : "Episodio 1"
+	}
+]
+
+
+Recurso: /series
+Verbos Aceptados: GET
+GET	/serie - Devuelve todas las series. Si hay título como parámetro, devuelve dicha serie unicamente. Si se pasa una incial, devuelve todas las letras que empiecen por
+			 esa inicial.
+Parámetros:
+	Titulo  - titulo de la serie
+	Inicial - inicial de la serie.
+	Nota : Solo uno de los parametros puede utilizarse
+Respuestas: 200 Ok, 400 Bad Request
+Modelo de Respuesta:
+[
+    { 
+		"id": 0,
+        "titulo": "Stranger things",
+        "sinopsis": "sigue las aventuras de un grupo de amigos en la década de 1980 mientras enfrentan "
+				+ "misterios sobrenaturales, incluyendo la desaparición de uno de ellos "
+				+ "y el descubrimiento de un mundo paralelo llamado el Mundo del Revés.",
+        "categoria": "ESTANDAR",
+        "autores": ["Mat Duffer", "Ross Duffer"],
+        "actores": ["Millie Bobby Brown", "David Harbour", "Gaten Matarazzo"]
+        "temporadas": 
+		[
+            {
+				"numero" : 1,
+				"capitulos" : 
+				[
+					{
+						numero : 1,
+						titulo : "El desaparecido de Will Byers",
+						sinopsis : "Will Byers desaparece "
+						+ "misteriosamente, y su madre y amigos comienzan a buscarlo, encontrándose con una niña con "
+						+ "poderes telequinéticos."
+					}
+					{
+						numero : 3,
+						titulo : "La pulga y el acróbata",
+						sinopsis : "Los amigos de Will encuentran pistas "
+						+ "sobre su paradero mientras Eleven revela sus poderes al grupo."
+					}
+					{
+						numero : 8,
+						titulo : "El Mundo del Revés",
+						sinopsis : "Los secretos del laboratorio se revelan "
+						+ "mientras el grupo enfrenta a criaturas aterradoras en el Mundo del Revés."
+					}
+				]
+			},
+			{
+				"numero" : 2,
+				"capitulos" :
+				[
+					{
+						numero : 1,
+						titulo : "MadMax",
+						sinopsis : "Un nuevo personaje, Max, llega a Hawkins mientras la "
+						+ "ciudad se enfrenta a nuevas amenazas y misterios."
+					}
+					{
+						numero : 5,
+						titulo : "Dig Dug",
+						sinopsis : " Will experimenta visiones mientras Joyce y Hopper "
+						+ "descubren más sobre el Mundo del Revés."
+					}
+					{
+						numero : 9,
+						titulo : "El portal",
+						sinopsis : " El grupo se une para enfrentar al Demogorgon "
+						+ "y cerrar el portal hacia el Mundo del Revés."
+					}
+				]
+			}
+        ]
+    },
+    { 
+		"id": 1,
+        "titulo": "Peaky blinders",
+        "sinopsis": "sigue a la familia Shelby, encabezada por el carismático "
+				+ "gánster Thomas Shelby, mientras ascienden en el mundo criminal de Birmingham "
+				+ "después de la Primera Guerra Mundial."
+        "categoria": "SILVER",
+        "autores": ["Steven Knight"],
+        "actores": ["Cillian Murphy", "Paul Anderson", "Joe Cole"],
+        "temporadas": 
+		[
+            {
+				"numero" : 1,
+				"capitulos" : 
+				[
+					{
+						numero : 1,
+						titulo : "Episodio 1",
+						sinopsis : "La familia Shelby planea un robo y se cruza con "
+						+ "una agente infiltrada."
+					}
+					{
+						numero : 3,
+						titulo : "Episodio 3",
+						sinopsis : "Thomas Shelby se enfrenta a nuevos enemigos mientras "
+						+ "su hermana Polly es liberada de prisión."
+					}
+					{
+						numero : 6,
+						titulo : "Episodio 6",
+						sinopsis : "La rivalidad con la familia Lee alcanza su punto"
+						+ " álgido mientras los Shelby se preparan para la guerra.
+					}
+				]
+			},
+			{
+				"numero" : 2,
+				"capitulos" :
+				[
+					{
+						numero : 1,
+						titulo : "Episodio 1",
+						sinopsis : "Los Shelby enfrentan las consecuencias de sus acciones"
+						+ " mientras Thomas intenta expandir su imperio."
+					}
+					{
+						numero : 3,
+						titulo : "Episodio 3",
+						sinopsis : "La familia enfrenta nuevas amenazas mientras el "
+						+ "gobierno y la policía se acercan a los Peaky Blinders."
+					}
+					{
+						numero : 6,
+						titulo : "Episodio 6",
+						sinopsis : "Thomas planea su venganza contra Campbell mientras "
+						+ "la familia se ve amenazada por un nuevo enemigo."
+					}
+				]
+			}
+        ]
+    }
+	
+]
+	 
+	 
+Recurso: /series/{id}
+Verbos HTTP aceptados: GET
+GET /series/{id} - devuelve la serie con dicho id 
+Respuestas: 200 Ok, 404 Not Found
+Modelo de Respuesta:
+{ 
+	"id": 1,
+    "titulo": "Peaky blinders",
+    "sinopsis": "sigue a la familia Shelby, encabezada por el carismático "
+		+ "gánster Thomas Shelby, mientras ascienden en el mundo criminal de Birmingham "
+		+ "después de la Primera Guerra Mundial."
+    "categoria": "SILVER",
+    "autores": ["Steven Knight"],
+    "actores": ["Cillian Murphy", "Paul Anderson", "Joe Cole"],
+    "temporadas": 
+	[
+        {
+			"numero" : 1,
+			"capitulos" : 
+			[
+				{
+					numero : 1,
+					titulo : "Episodio 1",
+					sinopsis : "La familia Shelby planea un robo y se cruza con "
+					+ "una agente infiltrada."
+				}
+				{
+					numero : 3,
+					titulo : "Episodio 3",
+					sinopsis : "Thomas Shelby se enfrenta a nuevos enemigos mientras "
+					+ "su hermana Polly es liberada de prisión."
+				}
+				{
+					numero : 6,
+					titulo : "Episodio 6",
+					sinopsis : "La rivalidad con la familia Lee alcanza su punto"
+					+ " álgido mientras los Shelby se preparan para la guerra.
+				}
+			]
+		},
+		{
+			"numero" : 2,
+			"capitulos" :
+			[
+				{
+					numero : 1,
+					titulo : "Episodio 1",
+					sinopsis : "Los Shelby enfrentan las consecuencias de sus acciones"
+					+ " mientras Thomas intenta expandir su imperio."
+				}
+				{
+					numero : 3,
+					titulo : "Episodio 3",
+					sinopsis : "La familia enfrenta nuevas amenazas mientras el "
+					+ "gobierno y la policía se acercan a los Peaky Blinders."
+				}
+				{
+					numero : 6,
+					titulo : "Episodio 6",
+					sinopsis : "Thomas planea su venganza contra Campbell mientras "
+					+ "la familia se ve amenazada por un nuevo enemigo."
+				}
+			]
+		}
+    ]
+}
