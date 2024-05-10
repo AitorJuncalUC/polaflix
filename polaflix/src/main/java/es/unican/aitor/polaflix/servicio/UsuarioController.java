@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
-import es.unican.aitor.polaflix.dominio.Capitulo;
 import es.unican.aitor.polaflix.dominio.CapitulosVistos;
 import es.unican.aitor.polaflix.dominio.Factura;
-import es.unican.aitor.polaflix.dominio.Serie;
 import es.unican.aitor.polaflix.dominio.Usuario;
 import jakarta.transaction.Transactional;
 
@@ -62,8 +60,8 @@ public class UsuarioController {
 	
 	@GetMapping("/{nombre}/capitulosVistos")
 	@JsonView({Views.CapituloVistoView.class})
-	public ResponseEntity<Map<Long, CapitulosVistos>> getCapitulosVistos(@PathVariable String nombre) {
-		Map<Long, CapitulosVistos> capitulos = us.getCapitulosVistos(nombre);
+	public ResponseEntity<Map<Integer, CapitulosVistos>> getCapitulosVistos(@PathVariable String nombre) {
+		Map<Integer,CapitulosVistos> capitulos = us.getCapitulosVistos(nombre);
 		if (capitulos == null) {
 			return ResponseEntity.badRequest().build();
         }
@@ -75,28 +73,30 @@ public class UsuarioController {
 	@PutMapping("/{nombre}/capitulosVistos")
 	@JsonView({Views.CapituloVistoView.class})
 	@Transactional
-	public ResponseEntity<Usuario> verCapitulo(@PathVariable String nombre, 
-																		@PathVariable Capitulo capitulo) {
-		us.addCapituloVisto(nombre, capitulo);
-		if (capitulo == null) {
+	public ResponseEntity<Map<Integer, CapitulosVistos>> verCapitulo(@PathVariable String nombre, 
+			@RequestParam("nombreSerie") String nombreSerie, @RequestParam("numTemporada") int numTemporada, @RequestParam("numCapitulo") int numCapitulo) {
+		us.addCapituloVisto(nombre, nombreSerie, numTemporada, numCapitulo);
+		Map<Integer, CapitulosVistos> capitulos = us.getUsuarioByNombre(nombre).getCapitulosVistos();
+		if (capitulos == null) {
 			return ResponseEntity.notFound().build();
         }
         else {
-        	return ResponseEntity.ok(getUsuario(nombre).getBody());
+        	return ResponseEntity.ok(capitulos);
         }
 	}
 	
-	@PutMapping("/{nombre}/seriesEmpezadas")
+	@PutMapping("/{nombre}/seriesPendientes")
 	@JsonView({Views.UsuarioView.class})
 	@Transactional
 	public ResponseEntity<Usuario> anhadeSerie(@PathVariable String nombre, 
-																		@PathVariable Serie serie) {
-		us.addSeriePendiente(nombre, serie);
-		if (serie == null) {
+			@RequestParam("nombreSerie") String nombreSerie) {
+		us.addSeriePendiente(nombre, nombreSerie);
+		Usuario usuario = getUsuario(nombre).getBody();
+		if (usuario == null) {
 			return ResponseEntity.notFound().build();
         }
         else {
-        	return ResponseEntity.ok(getUsuario(nombre).getBody());
+        	return ResponseEntity.ok(usuario);
         }
 	}
 }

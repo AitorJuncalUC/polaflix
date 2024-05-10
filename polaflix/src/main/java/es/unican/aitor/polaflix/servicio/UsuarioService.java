@@ -12,7 +12,9 @@ import es.unican.aitor.polaflix.dominio.Capitulo;
 import es.unican.aitor.polaflix.dominio.CapitulosVistos;
 import es.unican.aitor.polaflix.dominio.Factura;
 import es.unican.aitor.polaflix.dominio.Serie;
+import es.unican.aitor.polaflix.dominio.Temporada;
 import es.unican.aitor.polaflix.dominio.Usuario;
+import es.unican.aitor.polaflix.repositorios.SerieRepository;
 import es.unican.aitor.polaflix.repositorios.UsuarioRepository;
 
 @Service
@@ -20,6 +22,8 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository ur;
+	@Autowired
+	private SerieRepository sr;
 	
 	public List<Usuario> getUsuarios() {
 		List<Usuario> usuarios = ur.findAll();
@@ -45,19 +49,37 @@ public class UsuarioService {
     	return factura;
 	}
 	
-	public Map<Long,CapitulosVistos> getCapitulosVistos(String nombre) {
+	public Map<Integer,CapitulosVistos> getCapitulosVistos(String nombre) {
 		Usuario usuario = getUsuarioByNombre(nombre);
-		Map<Long,CapitulosVistos> capitulos = usuario.getCapitulosVistos();
+		System.out.println(usuario.getCapitulosVistos().values());
+		Map<Integer,CapitulosVistos> capitulos = usuario.getCapitulosVistos();
 		return capitulos;
 	}
 	
-	public void addCapituloVisto(String nombre, Capitulo capitulo) {
-		Usuario usuario = getUsuarioByNombre(nombre);
-		usuario.verCapitulo(capitulo);
-	}
 	
-	public void addSeriePendiente(String nombre, Serie serie){
+	public void addSeriePendiente(String nombre, String nombreSerie){
 		Usuario usuario = getUsuarioByNombre(nombre);
-		usuario.anhadeSerie(serie);
+		Serie s = sr.findByTitulo(nombreSerie);
+		usuario.anhadeSerie(s);
+	}
+
+	public void addCapituloVisto(String nombre, String nombreSerie, int numTemporada, int numCapitulo) {
+		Usuario u = getUsuarioByNombre(nombre);
+		Serie s = sr.findByTitulo(nombreSerie);
+		List<Temporada> temporadas = s.getTemporadas();
+		Temporada t = null;
+		for(Temporada temporada : temporadas) {
+			if(temporada.getNumero() == numTemporada) {
+				t = temporada;
+			}
+		}
+		Capitulo c = null;
+		List<Capitulo> capitulos = t.getCapitulos();
+		for(Capitulo capitulo : capitulos) {
+			if(capitulo.getNumero() == numCapitulo) {
+				c = capitulo;
+			}
+		}
+		u.verCapitulo(c);
 	}
 }

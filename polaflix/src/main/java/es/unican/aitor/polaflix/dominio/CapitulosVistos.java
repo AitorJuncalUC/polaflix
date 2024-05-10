@@ -18,7 +18,7 @@ import jakarta.persistence.ManyToOne;
 public class CapitulosVistos {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	private Long id;
+	private int id;
 	
 	@ManyToOne()
 	private Usuario usuario;

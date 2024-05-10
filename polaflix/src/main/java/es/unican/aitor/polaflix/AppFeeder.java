@@ -56,7 +56,7 @@ public class AppFeeder implements CommandLineRunner {
 		u1.verCapitulo(c1); u1.verCapitulo(c2);
 		Factura f1 = u1.verFactura(anhoActual, mesActual);
 		
-		u2.anhadeSerie(s1); u2.anhadeSerie(s2);
+		u2.anhadeSerie(s1);
 		u2.comenzarSerie(s1);
 		u2.verCapitulo(c1);
 		Factura f2 = u2.verFactura(anhoActual, mesActual);
@@ -74,7 +74,7 @@ public class AppFeeder implements CommandLineRunner {
 		ArrayList<String> autores = new ArrayList<String>();
 		autores.add("Mat Duffer"); autores.add("Ross Duffer");
 		actores.add("Millie Bobby Brown"); actores.add("David Harbour"); actores.add("Gaten Matarazzo");
-		s1 = new Serie("Stranger things", "sigue las aventuras de un grupo de amigos en la década de 1980 mientras enfrentan "
+		s1 = new Serie("Stranger Things", "sigue las aventuras de un grupo de amigos en la década de 1980 mientras enfrentan "
 				+ "misterios sobrenaturales, incluyendo la desaparición de uno de ellos "
 				+ "y el descubrimiento de un mundo paralelo llamado el Mundo del Revés.", Categoria.ESTANDAR, 
 				temporadas1, actores, autores);
@@ -85,7 +85,7 @@ public class AppFeeder implements CommandLineRunner {
 		autores = new ArrayList<String>();
 		autores.add("Steven Knight");
 		actores.add("Cillian Murphy"); actores.add("Paul Anderson"); actores.add("Joe Cole");
-		s2 = new Serie("Peaky blinders", "sigue a la familia Shelby, encabezada por el carismático "
+		s2 = new Serie("Peaky Blinders", "sigue a la familia Shelby, encabezada por el carismático "
 				+ "gánster Thomas Shelby, mientras ascienden en el mundo criminal de Birmingham "
 				+ "después de la Primera Guerra Mundial.", Categoria.SILVER, 
 				temporadas2, actores, autores);

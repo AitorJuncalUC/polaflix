@@ -8,8 +8,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 import es.unican.aitor.polaflix.servicio.Views;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,13 +23,13 @@ public class Serie {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonView({Views.SerieView.class, Views.UsuarioView.class})
-	private Long id;
+	private int id;
 	@JsonView({Views.SerieView.class, Views.UsuarioView.class, Views.CapituloVistoView.class})
 	private String titulo;
 	@JsonView({Views.SerieView.class})
 	private String sinopsis;
 	
-	@Embedded
+	@Enumerated(EnumType.STRING)
 	@JsonView({Views.SerieView.class})
 	private Categoria categoria;
 	
@@ -104,7 +105,7 @@ public class Serie {
 		this.sinopsis = sinopsis;
 	}
 	
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 

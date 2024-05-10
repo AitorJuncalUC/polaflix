@@ -23,7 +23,7 @@ public class SerieController {
 	@Autowired
 	SerieService ss;
 	
-	@GetMapping()
+	@GetMapping("")
 	@JsonView({Views.SerieView.class})
 	public ResponseEntity<List<Serie>> getSeries(@RequestParam(required = false) String titulo,
 													@RequestParam(required = false) String inicial) {
@@ -35,7 +35,7 @@ public class SerieController {
 		if(inicial != null) {
 			series = ss.getSeriesByLetraInicial(inicial);
 		}
-		if(series == null && inicial == null) {
+		if(titulo == null && inicial == null) {
 			series = ss.getSeries();
 		}
 		if(series == null) {

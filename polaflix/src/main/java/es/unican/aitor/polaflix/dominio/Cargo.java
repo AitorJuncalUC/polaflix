@@ -32,7 +32,6 @@ public class Cargo {
 	
 	
 	public Cargo(Date fecha, String nombreSerie, int numTemporada, int numCapitulo, Categoria categoria) {
-		super();
 		this.fecha = fecha;
 		this.nombreSerie = nombreSerie;
 		this.numTemporada = numTemporada;

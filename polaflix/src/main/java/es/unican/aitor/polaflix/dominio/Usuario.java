@@ -45,9 +45,9 @@ public class Usuario {
 	@JsonView({Views.FacturaView.class})
 	private List<Factura> facturas;
 	
-	@ManyToMany(mappedBy="usuario", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="usuario", cascade = CascadeType.ALL)
 	@JsonView({Views.CapituloVistoView.class})
-	private Map<Long,CapitulosVistos> capitulosVistos;
+	private Map<Integer,CapitulosVistos> capitulosVistos;
 	
 	
 	protected Usuario() {
@@ -63,7 +63,7 @@ public class Usuario {
 		this.seriesEmpezadas = new ArrayList<Serie>();
 		this.seriesTerminadas = new ArrayList<Serie>();
 		this.facturas = new ArrayList<Factura>();
-		this.capitulosVistos = new HashMap<Long,CapitulosVistos>();
+		this.capitulosVistos = new HashMap<Integer,CapitulosVistos>();
 	}
 
 	public String getNombre() {
@@ -118,7 +118,7 @@ public class Usuario {
 		facturas.add(f);
 	}
 
-	public Map<Long,CapitulosVistos> getCapitulosVistos() {
+	public Map<Integer,CapitulosVistos> getCapitulosVistos() {
 		return capitulosVistos;
 	}
 	
@@ -172,9 +172,8 @@ public class Usuario {
 			
 			Cargo cargo = new Cargo(ahora, serie.getTitulo(), c.getTemporada().getNumero(), c.getNumero(), cat);
 			if(anhoFactura != anhoActual || mesFactura != mesActual) {
-				ArrayList<Cargo> cargos = new ArrayList<Cargo>();
-				cargos.add(cargo);
-				Factura factura = new Factura(ahora, cargos, this);
+				Factura factura = new Factura(ahora, this);
+				factura.anhadeCargo(cargo);
 				facturas.add(factura);
 			}
 			else {
@@ -183,9 +182,8 @@ public class Usuario {
 		}
 		else {
 			Cargo cargo = new Cargo(ahora, serie.getTitulo(), c.getTemporada().getNumero(), c.getNumero(), cat);
-			ArrayList<Cargo> cargos = new ArrayList<Cargo>();
-			cargos.add(cargo);
-			Factura factura = new Factura(ahora, cargos, this);
+			Factura factura = new Factura(ahora, this);
+			factura.anhadeCargo(cargo);
 			facturas.add(factura);
 		}
 	}

@@ -1,5 +1,6 @@
 package es.unican.aitor.polaflix.dominio;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -19,7 +20,9 @@ import jakarta.persistence.OrderBy;
 
 @Entity
 public class Factura {
+	@JsonView({Views.FacturaView.class})
 	private Date fecha;
+	@JsonView({Views.FacturaView.class})
 	private double importeTotal;
 	
 	@Id
@@ -41,9 +44,9 @@ public class Factura {
 		
 	}
 	
-	public Factura(Date fecha, List<Cargo> cargos, Usuario usuario) {
+	public Factura(Date fecha, Usuario usuario) {
 		this.fecha = fecha;
-		this.cargos = cargos;
+		this.cargos = new ArrayList<Cargo>();
 		this.usuario = usuario;
 		if(usuario.isPremium()) {
 			this.importeTotal = 20.0;
@@ -75,6 +78,9 @@ public class Factura {
 	}
 	
 	public void anhadeCargo(Cargo cargo) {
+		if(usuario.isPremium()) {
+			cargo.setPrecio(0.0);
+		}
 		this.importeTotal += cargo.getPrecio();
 		cargos.add(cargo);
 	}

@@ -26,11 +26,10 @@ public class Temporada {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonView({Views.SerieView.class})
-	private Long id;
+	private int id;
 	
 	@ManyToOne
 	@JsonBackReference 
-	@JsonView({Views.CapituloVistoView.class})
 	private Serie serie;
 	
 	@OneToMany(mappedBy = "temporada", cascade = CascadeType.ALL)

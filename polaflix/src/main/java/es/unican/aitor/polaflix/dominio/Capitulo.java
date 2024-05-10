@@ -18,6 +18,10 @@ public class Capitulo {
 	private String titulo;
 	@JsonView({Views.SerieView.class, Views.CapituloVistoView.class})
 	private int numero;
+	@JsonView({Views.CapituloVistoView.class})
+	private int numTemporada;
+	@JsonView({Views.CapituloVistoView.class})
+	private String tituloSerie;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +32,6 @@ public class Capitulo {
 	
 	@ManyToOne
 	@JsonBackReference
-	@JsonView({Views.CapituloVistoView.class})
 	private Temporada temporada;
 	
 	protected Capitulo() {
@@ -40,6 +43,8 @@ public class Capitulo {
 		this.numero = numero;
 		this.descripcion = descripcion;
 		this.temporada = temporada;
+		this.numTemporada = temporada.getNumero();
+		this.tituloSerie = temporada.getSerie().getTitulo();
 	}
 
 	public Temporada getTemporada() {
@@ -72,6 +77,22 @@ public class Capitulo {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public int getNumTemporada() {
+		return numTemporada;
+	}
+
+	public void setNumTemporada(int numTemporada) {
+		this.numTemporada = numTemporada;
+	}
+
+	public String getTituloSerie() {
+		return tituloSerie;
+	}
+
+	public void setTituloSerie(String tituloSerie) {
+		this.tituloSerie = tituloSerie;
 	}
 
 	@Override
