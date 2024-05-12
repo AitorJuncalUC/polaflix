@@ -141,12 +141,15 @@ public class Usuario {
 	
 	
 	public void anhadeSerie(Serie s) {
-		if(!seriesPendientes.contains(s)) {
+		if(!seriesPendientes.contains(s) && s != null) {
 			seriesPendientes.add(s);
 		}
 	}
 	public void comenzarSerie(Serie s) {
-		if(seriesPendientes.contains(s)) {
+		if(!seriesPendientes.contains(s) && !seriesEmpezadas.contains(s)) {
+			anhadeSerie(s);
+		}
+		if(seriesPendientes.contains(s) && s != null) {
 			seriesPendientes.remove(s);
 			seriesEmpezadas.add(s);
 			capitulosVistos.put(s.getId(), new CapitulosVistos(this));

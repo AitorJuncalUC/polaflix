@@ -30,7 +30,9 @@ public class SerieController {
 		List<Serie> series = new ArrayList<Serie>();
 		if(titulo != null) {
 			Serie serie = ss.getSerieByTitulo(titulo);
-			series.add(serie);
+			if(serie != null) {
+				series.add(serie);
+			}
 		}
 		if(inicial != null) {
 			series = ss.getSeriesByLetraInicial(inicial);
@@ -41,6 +43,9 @@ public class SerieController {
 		if(series == null) {
 			return ResponseEntity.badRequest().build();
 		}
+		if(series.size() == 0) {
+			return ResponseEntity.notFound().build();
+		}
 		return ResponseEntity.ok(series);
 	}
 	
@@ -48,7 +53,7 @@ public class SerieController {
 	@JsonView({Views.SerieView.class})
 	public ResponseEntity<Optional<Serie>> getSerie(@PathVariable int id) {
 		Optional<Serie> serie = ss.getSerieById(id);
-		if(serie == null) {
+		if(serie.isEmpty()) {
 			return  ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(serie);

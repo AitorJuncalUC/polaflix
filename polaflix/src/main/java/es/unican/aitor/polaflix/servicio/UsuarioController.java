@@ -1,5 +1,7 @@
 package es.unican.aitor.polaflix.servicio;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import es.unican.aitor.polaflix.dominio.Capitulo;
 import es.unican.aitor.polaflix.dominio.CapitulosVistos;
 import es.unican.aitor.polaflix.dominio.Factura;
 import es.unican.aitor.polaflix.dominio.Usuario;
@@ -29,25 +32,45 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioService us;
 	
+	@GetMapping("")
+	@JsonView({Views.UsuarioView.class})
+	public ResponseEntity<List<Usuario>> getUsuarios() {
+		List<Usuario> usuarios = us.getUsuarios();
+		if(usuarios == null) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.ok(usuarios);
+	}
+	
 	@GetMapping("/{nombre}")
 	@JsonView({Views.UsuarioView.class})
 	public ResponseEntity<Usuario> getUsuario(@PathVariable String nombre) {
 		Usuario usuario = us.getUsuarioByNombre(nombre);
 		if(usuario == null) {
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(usuario);
 	}
 	
 	@GetMapping("/{nombre}/facturas")
 	@JsonView({Views.FacturaView.class})
-    public ResponseEntity<List<Factura>> getFacturas(@PathVariable String nombre, @RequestParam(required = false) Date fecha) {
+    public ResponseEntity<List<Factura>> getFacturas(@PathVariable String nombre, @RequestParam(required = false) String fecha) {
 		List<Factura> facturas = new ArrayList<Factura>();
         if(fecha == null) {
         	facturas = us.getFacturas(nombre);
         }
         else {
-        	Factura factura = us.getFacturaByFecha(nombre, fecha);
+        	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    		Date date = null;
+    		try {
+    			date = dateFormat.parse(fecha);
+    		} catch (ParseException e) {
+    			e.printStackTrace();
+    		}
+        	Factura factura = us.getFacturaByFecha(nombre, date);
+        	if(factura == null) {
+        		return ResponseEntity.notFound().build();
+        	}
         	facturas.add(factura);
         }
         if (facturas == null) {
@@ -85,14 +108,28 @@ public class UsuarioController {
         }
 	}
 	
+	@GetMapping("/{nombre}/capitulosVistos/ultimoVisto")
+	@JsonView({Views.CapituloVistoView.class})
+	public ResponseEntity<Capitulo> getUltimoCapitulo(@PathVariable String nombre, @RequestParam("nombreSerie") String nombreSerie) {
+		Capitulo capitulo = us.ultimoCapituloVistoSerie(nombre, nombreSerie);
+		if (capitulo == null) {
+			return ResponseEntity.notFound().build();
+        }
+        else {
+        	return ResponseEntity.ok(capitulo);
+        }
+	}
+	
 	@PutMapping("/{nombre}/seriesPendientes")
 	@JsonView({Views.UsuarioView.class})
 	@Transactional
 	public ResponseEntity<Usuario> anhadeSerie(@PathVariable String nombre, 
 			@RequestParam("nombreSerie") String nombreSerie) {
-		us.addSeriePendiente(nombre, nombreSerie);
 		Usuario usuario = getUsuario(nombre).getBody();
-		if (usuario == null) {
+		int numPendientesAntes = usuario.getSeriesPendientes().size();
+		us.addSeriePendiente(nombre, nombreSerie);
+		int numPendientesDespues = usuario.getSeriesPendientes().size();
+		if (numPendientesAntes == numPendientesDespues) {
 			return ResponseEntity.notFound().build();
         }
         else {

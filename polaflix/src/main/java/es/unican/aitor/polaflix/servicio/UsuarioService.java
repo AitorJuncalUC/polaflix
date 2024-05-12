@@ -82,4 +82,12 @@ public class UsuarioService {
 		}
 		u.verCapitulo(c);
 	}
+	
+	public Capitulo ultimoCapituloVistoSerie(String nombre, String nombreSerie) {
+		Usuario usuario = getUsuarioByNombre(nombre);
+		Serie serie = sr.findByTitulo(nombreSerie);
+		List<Capitulo> capitulosVistos = usuario.getCapitulosVistos().get(serie.getId()).getCapitulos();
+		Capitulo ultimoCapitulo = capitulosVistos.get(capitulosVistos.size()-1);
+		return ultimoCapitulo;
+	}
 }
