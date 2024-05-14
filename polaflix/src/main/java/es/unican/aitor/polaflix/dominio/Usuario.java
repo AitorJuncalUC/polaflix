@@ -141,7 +141,7 @@ public class Usuario {
 	
 	
 	public void anhadeSerie(Serie s) {
-		if(!seriesPendientes.contains(s) && s != null) {
+		if(!seriesPendientes.contains(s) && s != null && !seriesEmpezadas.contains(s)) {
 			seriesPendientes.add(s);
 		}
 	}
@@ -149,7 +149,7 @@ public class Usuario {
 		if(!seriesPendientes.contains(s) && !seriesEmpezadas.contains(s)) {
 			anhadeSerie(s);
 		}
-		if(seriesPendientes.contains(s) && s != null) {
+		if(seriesPendientes.contains(s) && s != null){
 			seriesPendientes.remove(s);
 			seriesEmpezadas.add(s);
 			capitulosVistos.put(s.getId(), new CapitulosVistos(this));
@@ -160,6 +160,10 @@ public class Usuario {
 		Serie serie = c.getTemporada().getSerie();
 		Categoria cat = serie.getCategoria();
 		comenzarSerie(serie);
+		List<Capitulo> capitulos = capitulosVistos.get(serie.getId()).getCapitulos();
+		if(capitulos.contains(c)) {
+			return;
+		}
 		capitulosVistos.get(serie.getId()).anhadeCapitulo(c);
 		
 		Date ahora = new Date();

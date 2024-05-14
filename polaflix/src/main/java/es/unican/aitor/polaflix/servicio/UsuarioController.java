@@ -96,22 +96,21 @@ public class UsuarioController {
 	@PutMapping("/{nombre}/capitulosVistos")
 	@JsonView({Views.CapituloVistoView.class})
 	@Transactional
-	public ResponseEntity<Map<Integer, CapitulosVistos>> verCapitulo(@PathVariable String nombre, 
-			@RequestParam("nombreSerie") String nombreSerie, @RequestParam("numTemporada") int numTemporada, @RequestParam("numCapitulo") int numCapitulo) {
-		us.addCapituloVisto(nombre, nombreSerie, numTemporada, numCapitulo);
-		Map<Integer, CapitulosVistos> capitulos = us.getUsuarioByNombre(nombre).getCapitulosVistos();
-		if (capitulos == null) {
+	public ResponseEntity<Capitulo> verCapitulo(@PathVariable String nombre, 
+			@RequestParam("idSerie") int idSerie, @RequestParam("numTemporada") int numTemporada, @RequestParam("numCapitulo") int numCapitulo) {
+		Capitulo capitulo = us.addCapituloVisto(nombre, idSerie, numTemporada, numCapitulo);
+		if (capitulo == null) {
 			return ResponseEntity.notFound().build();
         }
         else {
-        	return ResponseEntity.ok(capitulos);
+        	return ResponseEntity.ok(capitulo);
         }
 	}
 	
 	@GetMapping("/{nombre}/capitulosVistos/ultimoVisto")
 	@JsonView({Views.CapituloVistoView.class})
-	public ResponseEntity<Capitulo> getUltimoCapitulo(@PathVariable String nombre, @RequestParam("nombreSerie") String nombreSerie) {
-		Capitulo capitulo = us.ultimoCapituloVistoSerie(nombre, nombreSerie);
+	public ResponseEntity<Capitulo> getUltimoCapitulo(@PathVariable String nombre, @RequestParam("idSerie") int idSerie) {
+		Capitulo capitulo = us.ultimoCapituloVistoSerie(nombre, idSerie);
 		if (capitulo == null) {
 			return ResponseEntity.notFound().build();
         }
@@ -124,10 +123,10 @@ public class UsuarioController {
 	@JsonView({Views.UsuarioView.class})
 	@Transactional
 	public ResponseEntity<Usuario> anhadeSerie(@PathVariable String nombre, 
-			@RequestParam("nombreSerie") String nombreSerie) {
+			@RequestParam("idSerie") int idSerie) {
 		Usuario usuario = getUsuario(nombre).getBody();
 		int numPendientesAntes = usuario.getSeriesPendientes().size();
-		us.addSeriePendiente(nombre, nombreSerie);
+		us.addSeriePendiente(nombre, idSerie);
 		int numPendientesDespues = usuario.getSeriesPendientes().size();
 		if (numPendientesAntes == numPendientesDespues) {
 			return ResponseEntity.notFound().build();

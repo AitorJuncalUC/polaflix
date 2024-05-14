@@ -1,7 +1,7 @@
 Recursos : /usuarios
 Verbos Aceptados : Get
 Devuelve todos los usuarios del sistema
-Respuestas : 200 Ok, 400 Bad Request
+Respuestas : 200 Ok, 400 Bad Request, 500 Internal Server Error
 Modelo de Respuesta:
 [
     {
@@ -42,7 +42,7 @@ Modelo de Respuesta:
 Recurso : /usuarios/{nombre}
 Verbos Aceptados: GET
 Get /usuario/{nombre} - Devuelve el usuario con dicho nombre(devuelve una lista de sus series pendientes, empezadas y terminadas)
-Respuestas: 200 Ok, 404 Not Found
+Respuestas: 200 Ok, 404 Not Found, 500 Internal Server Error
 Modelo de Respuesta:
 	{
 		"nombre": "Paco",
@@ -71,7 +71,7 @@ Verbos Aceptados: GET
 Get /usuario/{nombre} - Devuelve todas las facturas del usuario con dicho nombre. O una sola factura si se pasa una fecha como filtro.
 Parámetros:
 	-Fecha.
-Respuestas: 200 Ok, 404 Not Found, 400 Bad Request
+Respuestas: 200 Ok, 404 Not Found, 400 Bad Request, 500 Internal Server Error
 Modelo de Respuesta:
 [
 	{ 
@@ -101,8 +101,8 @@ Modelo de Respuesta:
 Recurso: /usuarios/{nombre}/seriesPendientes
 Verbos Aceptados: PUT
 PUT /serie - Añade una serie del catalo a la lista de seriesPendientes del usuario.
-parametro : nombreSerie, nombre de la serie a añadir.
-Respuestas: 200 Ok, 404 Not Found
+parametro : idSerie, id de la serie a añadir.
+Respuestas: 200 Ok, 400 Bad Request, 500 Internal Server Error
 Modelo de Respuesta:
 {
     "nombre": "Lola",
@@ -127,7 +127,7 @@ Modelo de Respuesta:
 Recurso: /usuarios/{nombre}/capitulosVistos
 Verbos Aceptados: GET
 GET /serie - Devuelve los capítulos vistos.
-Respuestas: 200 Ok, 400 Bad Request
+Respuestas: 200 Ok, 400 Bad Request, 500 Internal Server Error
 Modelo de Respuesta:
 [
     "1": {
@@ -155,8 +155,8 @@ Modelo de Respuesta:
 Recurso: /usuarios/{nombre}/capitulosVistos/ultimoVisto
 Verbos Aceptados: GET
 GET /serie - Devuelve el ultimo capitulo visto de una serie.
-Parametro : nombreSerie, que es la serie de la que queremos buscar el último capitulo visto.
-Respuestas: 200 Ok, 404 not found
+Parametro : idSerie, que es la serie de la que queremos buscar el último capitulo visto.
+Respuestas: 200 Ok, 404 not found, 500 Internal Server Error
 Modelo de Respuesta:
 {
     "titulo": "Episodio 3",
@@ -212,7 +212,7 @@ Parámetros:
 	Titulo  - titulo de la serie
 	Inicial - inicial de la serie.
 	Nota : Solo uno de los parametros puede utilizarse
-Respuestas: 200 Ok, 400 Bad Request, 404 Not Found
+Respuestas: 200 Ok, 400 Bad Request, 404 Not Found, 500 Internal Server Error
 Modelo de Respuesta:
 [
     {
@@ -338,7 +338,7 @@ Modelo de Respuesta:
 Recurso: /series/{id}
 Verbos HTTP aceptados: GET
 GET /series/{id} - devuelve la serie con dicho id 
-Respuestas: 200 Ok, 404 Not Found
+Respuestas: 200 Ok, 404 Not Found, 500 Internal Server Error
 Modelo de Respuesta:
 {
     "id": 1,

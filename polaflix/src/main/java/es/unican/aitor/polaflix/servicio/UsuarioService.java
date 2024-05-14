@@ -57,15 +57,15 @@ public class UsuarioService {
 	}
 	
 	
-	public void addSeriePendiente(String nombre, String nombreSerie){
+	public void addSeriePendiente(String nombre, int idSerie){
 		Usuario usuario = getUsuarioByNombre(nombre);
-		Serie s = sr.findByTitulo(nombreSerie);
+		Serie s = sr.findById(idSerie).get();
 		usuario.anhadeSerie(s);
 	}
 
-	public void addCapituloVisto(String nombre, String nombreSerie, int numTemporada, int numCapitulo) {
+	public Capitulo addCapituloVisto(String nombre, int idSerie, int numTemporada, int numCapitulo) {
 		Usuario u = getUsuarioByNombre(nombre);
-		Serie s = sr.findByTitulo(nombreSerie);
+		Serie s = sr.findById(idSerie).get();
 		List<Temporada> temporadas = s.getTemporadas();
 		Temporada t = null;
 		for(Temporada temporada : temporadas) {
@@ -81,12 +81,12 @@ public class UsuarioService {
 			}
 		}
 		u.verCapitulo(c);
+		return c;
 	}
 	
-	public Capitulo ultimoCapituloVistoSerie(String nombre, String nombreSerie) {
+	public Capitulo ultimoCapituloVistoSerie(String nombre, int idSerie) {
 		Usuario usuario = getUsuarioByNombre(nombre);
-		Serie serie = sr.findByTitulo(nombreSerie);
-		List<Capitulo> capitulosVistos = usuario.getCapitulosVistos().get(serie.getId()).getCapitulos();
+		List<Capitulo> capitulosVistos = usuario.getCapitulosVistos().get(idSerie).getCapitulos();
 		Capitulo ultimoCapitulo = capitulosVistos.get(capitulosVistos.size()-1);
 		return ultimoCapitulo;
 	}
