@@ -169,39 +169,17 @@ Recurso: /usuarios/{nombre}/capitulosVistos
 Verbos Aceptados: PUT
 PUT /serie - Marca un capítulo como visto
 Parametros : 
-	-nombreSerie : nombre de la serie
+	-idSerie : id de la serie
 	-numTemporada : temporada dentro de la serie
 	-numCapitulo : numero del capitulo en cuestión a añadir como visualizado
 Respuestas: 200 Ok, 404 Not Found, 500 Internal Server Error
 Modelo de Respuesta:
-[
-    "1": {
-        "capitulos": [
-            {
-                "titulo": "El desaparecido de Will Byers",
-                "numero": 1,
-                "numTemporada": 1,
-                "tituloSerie": "Stranger Things"
-            }
-        ]
-    },
-    "2": {
-        "capitulos": [
-            {
-                "titulo": "Episodio 1",
-                "numero": 1,
-                "numTemporada": 1,
-                "tituloSerie": "Peaky Blinders"
-            },
-            {
-                "titulo": "Episodio 3",
-                "numero": 3,
-                "numTemporada": 1,
-                "tituloSerie": "Peaky Blinders"
-            }
-        ]
-    }
-]
+	{
+		"titulo": "Episodio 3",
+		"numero": 3,
+		"numTemporada": 1,
+		"tituloSerie": "Peaky Blinders"
+	}
 
 
 Recurso: /series

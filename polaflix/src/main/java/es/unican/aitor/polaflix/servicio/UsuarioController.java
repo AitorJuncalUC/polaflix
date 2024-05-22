@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -26,6 +27,7 @@ import jakarta.transaction.Transactional;
 
 
 @RestController
+@CrossOrigin(origins= "http://localhost:4200", maxAge=3600)
 @RequestMapping("/usuarios")
 public class UsuarioController {
 	
@@ -60,7 +62,7 @@ public class UsuarioController {
         	facturas = us.getFacturas(nombre);
         }
         else {
-        	SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        	SimpleDateFormat dateFormat = new SimpleDateFormat("MM-yyyy");
     		Date date = null;
     		try {
     			date = dateFormat.parse(fecha);
