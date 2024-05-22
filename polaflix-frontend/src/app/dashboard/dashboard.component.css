@@ -1,0 +1,17 @@
+.dashboard {
+    display: flex; /* Mantenemos el contenedor flex */
+    flex-direction: column; /* Cambiamos la dirección a columna */
+    align-items: center; /* Centramos los elementos horizontalmente */
+    margin-top: 100px; /* Reducimos el margen superior */
+  }
+  
+  .card {
+    width: 100%; /* Ajustamos el ancho al 90% del contenedor */
+    margin: 20px auto; /* Eliminamos el margen vertical y centramos horizontalmente */
+    padding: 20px; /* Mantenemos el padding */
+    border: 1px solid #ccc; /* Mantenemos el borde */
+    border-radius: 10px; /* Mantenemos las esquinas redondeadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Mantenemos la sombra */
+    max-width: 1000px; /* Limitamos el ancho máximo */
+  }
+  

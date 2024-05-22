@@ -1,0 +1,47 @@
+.facturas {
+    margin-top: 200px;
+  }
+  
+  .facturas h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .facturas-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+  
+  .facturas-table th,
+  .facturas-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .facturas-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .facturas-table tfoot {
+    font-weight: bold;
+  }
+  
+  .total-label {
+    text-align: right;
+  }
+  
+  .navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .arrow {
+    cursor: pointer;
+    margin: 0 10px;
+    font-size: 20px;
+  }
+  

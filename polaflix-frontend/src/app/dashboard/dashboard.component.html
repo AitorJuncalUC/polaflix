@@ -1,0 +1,21 @@
+<div class="dashboard">
+    <div class="card">
+      <h2>Series Pendientes</h2>
+      <ul>
+        <li *ngFor="let serie of usuario.seriesPendientes">{{ serie.titulo }}</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Series Empezadas</h2>
+      <ul>
+        <li *ngFor="let serie of usuario.seriesEmpezadas">{{ serie.titulo }}</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h2>Series Terminadas</h2>
+      <ul>
+        <li *ngFor="let serie of usuario.seriesTerminadas">{{ usuario.IBAN }}</li>
+      </ul>
+    </div>
+  </div>
+  
