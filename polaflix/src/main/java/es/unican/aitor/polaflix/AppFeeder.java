@@ -135,7 +135,90 @@ public class AppFeeder implements CommandLineRunner {
 		t21.anhadeCapitulo(c211); t21.anhadeCapitulo(c212); t21.anhadeCapitulo(c213);
 		t22.anhadeCapitulo(c221); t22.anhadeCapitulo(c222); t21.anhadeCapitulo(c223);
 		
+		
+		Serie s3;
+		List<Temporada> temporadas3 = new ArrayList<Temporada>();
+		ArrayList<String> actores3 = new ArrayList<String>();
+		ArrayList<String> autores3 = new ArrayList<String>();
+		autores3.add("David Benioff"); autores3.add("D.B. Weiss");
+		actores3.add("Emilia Clarke"); actores3.add("Kit Harington"); actores3.add("Peter Dinklage");
+		s3 = new Serie("Game of Thrones", "sigue las luchas de poder entre familias nobles en los Siete Reinos de Westeros, mientras amenazas sobrenaturales emergen más allá del Muro.", Categoria.GOLD, temporadas3, actores3, autores3);
+		
+		Temporada t31, t32;
+		List<Capitulo> capitulos31 = new ArrayList<Capitulo>();
+		List<Capitulo> capitulos32 = new ArrayList<Capitulo>();
+		t31 = new Temporada(1, s3, capitulos31);
+		t32 = new Temporada(2, s3, capitulos32);
+		s3.anhadeTemporada(t31); s3.anhadeTemporada(t32);
+		
+		Capitulo c311 = new Capitulo("Winter Is Coming", 1, "Los Stark de Winterfell se enfrentan a la llegada del rey Robert Baratheon y su corte, mientras extrañas criaturas aparecen más allá del Muro.", t31);
+		Capitulo c312 = new Capitulo("The Kingsroad", 2, "Ned Stark acompaña al rey Robert a King's Landing, mientras Daenerys Targaryen se adapta a su nuevo papel como esposa de Khal Drogo.", t31);
+		Capitulo c313 = new Capitulo("Fire and Blood", 10, "Ned Stark enfrenta su destino en King's Landing mientras Daenerys toma decisiones que cambiarán su vida para siempre.", t31);
+		Capitulo c321 = new Capitulo("The North Remembers", 1, "Robb Stark continúa su guerra contra los Lannister mientras Tyrion llega a King's Landing para actuar como Mano del Rey.", t32);
+		Capitulo c322 = new Capitulo("Blackwater", 9, "La batalla de Blackwater pone a prueba la defensa de King's Landing mientras Stannis Baratheon intenta tomar el trono.", t32);
+		Capitulo c323 = new Capitulo("Valar Morghulis", 10, "Los personajes enfrentan las consecuencias de la batalla de Blackwater mientras nuevas alianzas se forjan.", t32);
+		
+		t31.anhadeCapitulo(c311); t31.anhadeCapitulo(c312); t31.anhadeCapitulo(c313);
+		t32.anhadeCapitulo(c321); t32.anhadeCapitulo(c322); t32.anhadeCapitulo(c323);
+		
+		
+		Serie s4;
+		List<Temporada> temporadas4 = new ArrayList<Temporada>();
+		ArrayList<String> actores4 = new ArrayList<String>();
+		ArrayList<String> autores4 = new ArrayList<String>();
+		autores4.add("Vince Gilligan");
+		actores4.add("Bryan Cranston"); actores4.add("Aaron Paul"); actores4.add("Anna Gunn");
+		s4 = new Serie("Breaking Bad", "sigue la transformación de Walter White, un profesor de química que se convierte en fabricante de metanfetaminas, mientras enfrenta a diversos enemigos en el mundo del narcotráfico.", Categoria.GOLD, temporadas4, actores4, autores4);
+
+		Temporada t41, t42;
+		List<Capitulo> capitulos41 = new ArrayList<Capitulo>();
+		List<Capitulo> capitulos42 = new ArrayList<Capitulo>();
+		t41 = new Temporada(1, s4, capitulos41);
+		t42 = new Temporada(2, s4, capitulos42);
+		s4.anhadeTemporada(t41); s4.anhadeTemporada(t42);
+		
+		Capitulo c411 = new Capitulo("Pilot", 1, "Walter White descubre que tiene cáncer terminal y decide fabricar metanfetaminas para asegurar el futuro de su familia.", t41);
+		Capitulo c412 = new Capitulo("Crazy Handful of Nothin'", 6, "Walter comienza a construir su imperio mientras enfrenta a rivales peligrosos en el negocio de las drogas.", t41);
+		Capitulo c413 = new Capitulo("A No-Rough-Stuff-Type Deal", 7, "Walter y Jesse enfrentan nuevos desafíos mientras intentan expandir su operación de metanfetaminas.", t41);
+		Capitulo c421 = new Capitulo("Seven Thirty-Seven", 1, "Walter y Jesse enfrentan las consecuencias de su éxito mientras los enemigos se cierran.", t42);
+		Capitulo c422 = new Capitulo("Phoenix", 12, "Walter se enfrenta a decisiones difíciles que afectan a su familia y a su negocio.", t42);
+		Capitulo c423 = new Capitulo("ABQ", 13, "La vida de Walter se complica aún más mientras intenta mantener el control de su imperio.", t42);
+		
+		t41.anhadeCapitulo(c411); t41.anhadeCapitulo(c412); t41.anhadeCapitulo(c413);
+		t42.anhadeCapitulo(c421); t42.anhadeCapitulo(c422); t42.anhadeCapitulo(c423);
+		
+		
+		Serie s5;
+		List<Temporada> temporadas5 = new ArrayList<Temporada>();
+		ArrayList<String> actores5 = new ArrayList<String>();
+		ArrayList<String> autores5 = new ArrayList<String>();
+		autores5.add("Jon Favreau");
+		actores5.add("Pedro Pascal"); actores5.add("Gina Carano"); actores5.add("Carl Weathers");
+		s5 = new Serie("The Mandalorian", "sigue las aventuras de un solitario cazarrecompensas en los confines de la galaxia, protegiendo a un misterioso niño con habilidades especiales.", Categoria.ESTANDAR, temporadas5, actores5, autores5);
+
+		Temporada t51, t52;
+		List<Capitulo> capitulos51 = new ArrayList<Capitulo>();
+		List<Capitulo> capitulos52 = new ArrayList<Capitulo>();
+		t51 = new Temporada(1, s5, capitulos51);
+		t52 = new Temporada(2, s5, capitulos52);
+		s5.anhadeTemporada(t51); s5.anhadeTemporada(t52);
+
+		Capitulo c511 = new Capitulo("Chapter 1: The Mandalorian", 1, "Un solitario cazarrecompensas recibe una misión para capturar a un objetivo misterioso.", t51);
+		Capitulo c512 = new Capitulo("Chapter 3: The Sin", 3, "El Mandalorianio enfrenta un dilema moral mientras decide el destino del niño.", t51);
+		Capitulo c513 = new Capitulo("Chapter 8: Redemption", 8, "El Mandalorianio y sus aliados enfrentan una batalla final para proteger al niño.", t51);
+		Capitulo c521 = new Capitulo("Chapter 9: The Marshal", 1, "El Mandalorianio busca a otros de su especie para ayudarle a encontrar el hogar del niño.", t52);
+		Capitulo c522 = new Capitulo("Chapter 13: The Jedi", 5, "El Mandalorianio se encuentra con una antigua Jedi que puede ayudarle en su misión.", t52);
+		Capitulo c523 = new Capitulo("Chapter 16: The Rescue", 8, "El Mandalorianio y sus aliados lanzan una misión de rescate desesperada.", t52);
+
+		t51.anhadeCapitulo(c511); t51.anhadeCapitulo(c512); t51.anhadeCapitulo(c513);
+		t52.anhadeCapitulo(c521); t52.anhadeCapitulo(c522); t52.anhadeCapitulo(c523);
+
+		
+		
 		sr.save(s1);
 		sr.save(s2);
+		sr.save(s3);
+		sr.save(s4);
+		sr.save(s5);
 	}
 }

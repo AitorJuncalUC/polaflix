@@ -156,14 +156,20 @@ public class Usuario {
 		}
 	}
 	
+	public void terminarSerie(Serie s) {
+		if(!seriesTerminadas.contains(s) && seriesEmpezadas.contains(s) && s != null) {
+			seriesEmpezadas.remove(s);
+			seriesTerminadas.add(s);
+		}
+	}
+	
 	public void verCapitulo(Capitulo c) {
 		Serie serie = c.getTemporada().getSerie();
-		Categoria cat = serie.getCategoria();
 		comenzarSerie(serie);
-		List<Capitulo> capitulos = capitulosVistos.get(serie.getId()).getCapitulos();
-		if(capitulos.contains(c)) {
+		if(seriesTerminadas.contains(serie)) {
 			return;
 		}
+		Categoria cat = serie.getCategoria();
 		capitulosVistos.get(serie.getId()).anhadeCapitulo(c);
 		
 		Date ahora = new Date();
@@ -192,6 +198,15 @@ public class Usuario {
 			Factura factura = new Factura(ahora, this);
 			factura.anhadeCargo(cargo);
 			facturas.add(factura);
+		}
+		
+		int capitulosTotales = 0;
+		for(Temporada temporada : serie.getTemporadas()) {
+			capitulosTotales += temporada.getCapitulos().size();
+		}
+		List<Capitulo> capitulos = capitulosVistos.get(serie.getId()).getCapitulos();
+		if(capitulosTotales == capitulos.size()) {
+			terminarSerie(serie);
 		}
 	}
 
