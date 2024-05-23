@@ -1,4 +1,3 @@
-// usuario.interface.ts
 export interface Usuario {
     nombre: string;
     contrasenha: string;
@@ -11,7 +10,6 @@ export interface Usuario {
     capitulosVistos: Map<number, CapitulosVistos>;
   }
   
-  // serie.interface.ts
   export interface Serie {
     id: number;
     titulo: string;
@@ -23,7 +21,6 @@ export interface Usuario {
   }
   
   
-  // temporada.interface.ts
   export interface Temporada {
     numero: number;
     id: number;
@@ -31,7 +28,6 @@ export interface Usuario {
     capitulos: Capitulo[];
   }
   
-  // capitulo.interface.ts
   export interface Capitulo {
     titulo: string;
     numero: number;
@@ -42,14 +38,12 @@ export interface Usuario {
     temporada: Temporada;
   }
   
-  // capitulos-vistos.interface.ts
   export interface CapitulosVistos {
     id: number;
     usuario: Usuario;
     capitulos: Capitulo[];
   }
   
-  // factura.interface.ts
   export interface Factura {
     fecha: Date;
     importeTotal: number;
@@ -58,7 +52,6 @@ export interface Usuario {
     usuario: Usuario;
   }
   
-  // cargo.interface.ts
   export interface Cargo {
     id: number;
     fecha: Date;

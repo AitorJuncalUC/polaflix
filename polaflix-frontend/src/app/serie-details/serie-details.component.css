@@ -1,0 +1,74 @@
+.serie-details-container {
+    margin: 20px;
+  }
+  
+  .header {
+    margin-top: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navigation-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .capitulos-list {
+    margin-top: 20px;
+  }
+  
+  .capitulo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .capitulo-item span {
+    flex: 1;
+  }
+  
+  .capitulo-item button {
+    margin-left: 10px;
+  }
+  
+  .descripcion-button {
+    background-color: #f0f0f0;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+  
+  .visto {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .descripcion-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+  }
+  
+  .descripcion-content {
+    position: relative;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  

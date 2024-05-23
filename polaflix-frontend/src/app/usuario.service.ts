@@ -9,7 +9,7 @@ import { Usuario, Factura, Capitulo, CapitulosVistos } from './interfaces';
 })
 
 export class UsuarioService {
-  private usuariosUrl = 'http://localhost:8080/usuarios';  // URL to web api
+  private url = 'http://localhost:8080/usuarios';  
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -17,27 +17,27 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
-  /** GET usuarios from the server */
+  /** GET usuarios */
   getUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(this.usuariosUrl)
+    return this.http.get<Usuario[]>(this.url)
       .pipe(
         tap(_ => this.log('fetched usuarios')),
         catchError(this.handleError<Usuario[]>('getUsuarios', []))
       );
   }
 
-  /** GET usuario by nombre */
+  /** GET usuario/nombre */
   getUsuario(nombre: string): Observable<Usuario> {
-    const url = `${this.usuariosUrl}/${nombre}`;
+    const url = `${this.url}/${nombre}`;
     return this.http.get<Usuario>(url).pipe(
       tap(_ => this.log(`fetched usuario nombre=${nombre}`)),
       catchError(this.handleError<Usuario>(`getUsuario nombre=${nombre}`))
     );
   }
 
-  /** GET facturas of a usuario by nombre */
+  /** GET facturas */
   getFacturas(nombre: string, fecha?: string): Observable<Factura[]> {
-    const url = fecha ? `${this.usuariosUrl}/${nombre}/facturas?fecha=${fecha}` : `${this.usuariosUrl}/${nombre}/facturas`;
+    const url = fecha ? `${this.url}/${nombre}/facturas?fecha=${fecha}` : `${this.url}/${nombre}/facturas`;
     return this.http.get<Factura[]>(url).pipe(
       tap(_ => this.log(`fetched facturas for usuario nombre=${nombre}`)),
       catchError(this.handleError<Factura[]>(`getFacturas nombre=${nombre}`, []))
@@ -45,36 +45,36 @@ export class UsuarioService {
   }
 
 
-  /** GET capitulos vistos of a usuario by nombre */
+  /** GET capitulosVistos*/
   getCapitulosVistos(nombre: string): Observable<Map<number, CapitulosVistos>> {
-    const url = `${this.usuariosUrl}/${nombre}/capitulosVistos`;
+    const url = `${this.url}/${nombre}/capitulosVistos`;
     return this.http.get<Map<number, CapitulosVistos>>(url).pipe(
       tap(_ => this.log(`fetched capitulos vistos for usuario nombre=${nombre}`)),
       catchError(this.handleError<Map<number, CapitulosVistos>>(`getCapitulosVistos nombre=${nombre}`))
     );
   }
 
-  /** PUT: add a new capitulo visto */
+  /** PUT capitulosVistos */
   verCapitulo(nombre: string, idSerie: number, numTemporada: number, numCapitulo: number): Observable<Capitulo> {
-    const url = `${this.usuariosUrl}/${nombre}/capitulosVistos?idSerie=${idSerie}&numTemporada=${numTemporada}&numCapitulo=${numCapitulo}`;
+    const url = `${this.url}/${nombre}/capitulosVistos?idSerie=${idSerie}&numTemporada=${numTemporada}&numCapitulo=${numCapitulo}`;
     return this.http.put<Capitulo>(url, this.httpOptions).pipe(
       tap(_ => this.log(`added capitulo visto for usuario nombre=${nombre}`)),
       catchError(this.handleError<Capitulo>('verCapitulo'))
     );
   }
 
-  /** GET ultimo capitulo visto of a usuario by nombre and serie id */
+  /** GET ultimo capitulo visto de una serie */
   getUltimoCapitulo(nombre: string, idSerie: number): Observable<Capitulo> {
-    const url = `${this.usuariosUrl}/${nombre}/capitulosVistos/ultimoVisto?idSerie=${idSerie}`;
+    const url = `${this.url}/${nombre}/capitulosVistos/ultimoVisto?idSerie=${idSerie}`;
     return this.http.get<Capitulo>(url).pipe(
       tap(_ => this.log(`fetched ultimo capitulo visto for usuario nombre=${nombre}, idSerie=${idSerie}`)),
       catchError(this.handleError<Capitulo>(`getUltimoCapitulo nombre=${nombre}, idSerie=${idSerie}`))
     );
   }
 
-  /** PUT: add a new serie pendiente */
+  /** PUT: anhade serie pendiente */
   anhadeSerie(nombre: string, idSerie: number): Observable<Usuario> {
-    const url = `${this.usuariosUrl}/${nombre}/seriesPendientes?idSerie=${idSerie}`;
+    const url = `${this.url}/${nombre}/seriesPendientes?idSerie=${idSerie}`;
     return this.http.put<Usuario>(url, this.httpOptions).pipe(
       tap(_ => this.log(`added serie pendiente for usuario nombre=${nombre}`)),
       catchError(this.handleError<Usuario>('anhadeSerie'))
@@ -83,7 +83,7 @@ export class UsuarioService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error); // log to console instead
+      console.error(error);
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };

@@ -7,32 +7,32 @@
     margin-bottom: 20px;
   }
   
-  .facturas-table {
+  .tabla {
     width: 100%;
     border-collapse: collapse;
     margin: 0 auto;
   }
   
-  .facturas-table th,
-  .facturas-table td {
+  .tabla th,
+  .tabla td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: center;
   }
   
-  .facturas-table th {
+  .tabla th {
     background-color: #f2f2f2;
   }
   
-  .facturas-table tfoot {
+  .tabla tfoot {
     font-weight: bold;
   }
   
-  .total-label {
+  .total {
     text-align: right;
   }
   
-  .navigation {
+  .navegacion {
     display: flex;
     align-items: center;
     justify-content: center;

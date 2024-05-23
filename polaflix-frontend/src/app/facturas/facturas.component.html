@@ -1,10 +1,10 @@
 <div class="facturas">
-  <div class="navigation">
-    <span (click)="previousMonth()" class="arrow">&#8249;</span>
+  <div class="navegacion">
+    <span (click)="mesAnterior()" class="arrow">&#8249;</span>
     <h2>{{ mesActual }}</h2>
-    <span (click)="nextMonth()" class="arrow">&#8250;</span>
+    <span (click)="mesSiguiente()" class="arrow">&#8250;</span>
   </div>
-    <table class="facturas-table">
+    <table class="tabla">
       <thead>
         <tr>
           <th>Fecha</th>
@@ -25,8 +25,8 @@
       </tbody>
       <tfoot>
         <tr>
-          <td colspan="4" class="total-label">Total</td>
-          <td>{{ getTotal() | currency }}</td>
+          <td colspan="4" class="total">Total</td>
+          <td>{{ getImporteTotal() | currency }}</td>
         </tr>
       </tfoot>
     </table>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../usuario.service';
-import { Usuario } from '../interfaces';
-import { RouterModule} from '@angular/router';
+import { Serie, Usuario } from '../interfaces';
+import { Router, RouterModule} from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 
 @Component({
@@ -12,13 +12,13 @@ import { NgFor, NgIf } from '@angular/common';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  usuario: Partial<Usuario> = { seriesPendientes: [], seriesEmpezadas: [], seriesTerminadas: [] };
+  usuario: Partial<Usuario> = {};
+  nombreUsuario : string = "Paco";
 
-
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService, private router : Router) {}
 
   ngOnInit() {
-    this.getUsuario("Paco");
+    this.getUsuario(this.nombreUsuario);
   }
 
   getUsuario(nombre: string): void {
@@ -27,4 +27,8 @@ export class DashboardComponent implements OnInit {
       console.log('Usuario:', this.usuario); // Intenta acceder a usuario aquí
     });
   }
+
+  verDetalles(serie: Serie): void {
+    this.router.navigate(['/serie-details', serie.id]);
+  } 
 }  

@@ -1,0 +1,26 @@
+<div class="serie-details-container">
+  <div class="header">
+    <h2>{{ serie?.titulo }} - Temporada {{ temporadaActual?.numero }}</h2>
+    <div class="navigation-buttons">
+      <button (click)="cambiarTemporada(-1)">&#9664;</button>
+      <button (click)="cambiarTemporada(1)">&#9654;</button>
+    </div>
+  </div>
+
+  <div class="capitulos-list">
+    <div *ngFor="let capitulo of temporadaActual?.capitulos" class="capitulo-item">
+      <span>{{ capitulo.numero }}. {{ capitulo.titulo }}</span>
+      <button  (click)="verCapitulo(capitulo)">Ver capítulo</button>
+      <span [ngClass]="{ 'visto': esCapituloVisto(capitulo) }">{{ esCapituloVisto(capitulo) ? 'Visto' : 'Pendiente' }}</span>
+      <button class="descripcion-button" (click)="mostrarDescripcion(capitulo)">Descripción</button>
+    </div>
+  </div>
+
+  <div *ngIf="selectedCapitulo" class="descripcion-popup">
+    <div class="descripcion-content">
+      <button class="close-button" (click)="cerrarDescripcion()">X</button>
+      <h3>{{ selectedCapitulo.titulo }}</h3>
+      <p>{{ selectedCapitulo.descripcion }}</p>
+    </div>
+  </div>
+</div>

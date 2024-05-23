@@ -16,64 +16,65 @@ export class FacturasComponent implements OnInit {
   facturas: Factura[] = [];
   cargos: Cargo[] = [];
   mesActual: string = '';
+  nombreUsuario : string = 'Paco';
 
   constructor(private usuarioService: UsuarioService) {}
 
   ngOnInit() {
     this.mesActual = this.getMesActual();
-    this.getFacturas('Paco', this.mesActual);
+    this.getFacturas(this.nombreUsuario, this.mesActual);
   }
 
   getFacturas(nombre: string, fecha?: string): void {
     this.usuarioService.getFacturas(nombre, fecha).subscribe(facturas => {
       this.facturas = facturas;
-      this.cargos = this.extractCargos(facturas);
+      this.cargos = this.getCargos(facturas);
       console.log('Facturas:', this.facturas);
     });
   }
 
-  extractCargos(facturas: Factura[]): Cargo[] {
+  getCargos(facturas: Factura[]): Cargo[] {
     return facturas.flatMap(factura => factura.cargos);
   }
 
-  getTotal(): number {
+  getImporteTotal(): number {
     return this.cargos.reduce((total, cargo) => total + cargo.precio, 0);
   }
 
 
   getMesActual(): string {
     const now = new Date();
-    return formatDate(now, 'MM-yyyy', 'en-US'); // Ajuste de formato
+    return formatDate(now, 'MM-yyyy', 'en-US');
   }
 
-  previousMonth(): void {
-    const [currentMonth, currentYear] = this.mesActual.split('-').map(Number);
-    let previousMonth = currentMonth - 1;
-    let previousYear = currentYear;
+  mesAnterior(): void {
+    const [mes, anho] = this.mesActual.split('-').map(Number);
+    let mesAnterior = mes - 1;
+    let anhoAnterior = anho;
   
-    if (previousMonth === 0) {
-      previousMonth = 12;
-      previousYear -= 1;
+    if (mesAnterior === 0) {
+      mesAnterior = 12;
+      anhoAnterior -= 1;
     }
   
-    this.mesActual = `${previousMonth.toString().padStart(2, '0')}-${previousYear}`;
-    const fechaAnterior = `${previousMonth.toString().padStart(2, '0')}-${previousYear}`;
-    this.getFacturas('Paco', fechaAnterior);
+    this.mesActual = `${mesAnterior.toString().padStart(2, '0')}-${anhoAnterior}`;
+    const fechaAnterior = `${mesAnterior.toString().padStart(2, '0')}-${anhoAnterior}`;
+    this.getFacturas(this.nombreUsuario, fechaAnterior);
   }
   
-  nextMonth(): void {
-    const [currentMonth, currentYear] = this.mesActual.split('-').map(Number);
-    let nextMonth = currentMonth + 1;
-    let nextYear = currentYear;
+  mesSiguiente(): void {
+    const [mes, anho] = this.mesActual.split('-').map(Number);
+    let mesSiguiente = mes + 1;
+    let anhoSiguiente = anho;
   
-    if (nextMonth === 13) {
-      nextMonth = 1;
-      nextYear += 1;
+    if (mesSiguiente === 13) {
+      mesSiguiente = 1;
+      anhoSiguiente += 1;
     }
   
-    this.mesActual = `${nextMonth.toString().padStart(2, '0')}-${nextYear}`;
-    const fechaSiguiente = `${nextMonth.toString().padStart(2, '0')}-${nextYear}`;
-    this.getFacturas('Paco', fechaSiguiente);
+    this.mesActual = `${mesSiguiente.toString().padStart(2, '0')}-${anhoSiguiente}`;
+    const fechaSiguiente = `${mesSiguiente.toString().padStart(2, '0')}-${anhoSiguiente}`;
+    this.getFacturas(this.nombreUsuario, fechaSiguiente);
   }
   
 }
