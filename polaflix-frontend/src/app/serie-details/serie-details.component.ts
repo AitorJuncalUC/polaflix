@@ -19,6 +19,7 @@ export class SerieDetailsComponent implements OnInit {
   capitulosVistos: Map<number, CapitulosVistos> = new Map();
   temporadaActual: Temporada | undefined;
   selectedCapitulo: Capitulo | undefined;
+  ultimoCapituloVisto: Capitulo | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,10 +29,11 @@ export class SerieDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     const idSerie = Number(this.route.snapshot.paramMap.get('id'));
-    const nombreUsuario = 'Paco'; // Este valor debe ser dinámico según el contexto de tu aplicación
+    const nombreUsuario = 'Paco';
     this.getSerie(idSerie);
     this.getUsuario(nombreUsuario);
     this.getCapitulosVistos(nombreUsuario);
+    this.getUltimoCapituloVisto(nombreUsuario, idSerie);
   }
 
   getSerie(serieId: number): void {
@@ -50,6 +52,12 @@ export class SerieDetailsComponent implements OnInit {
   getCapitulosVistos(nombre: string): void {
     this.usuarioService.getCapitulosVistos(nombre).subscribe(capitulosVistos => {
       this.capitulosVistos = this.convertObjectToMap(capitulosVistos);
+    });
+  }
+
+  getUltimoCapituloVisto(nombre: string, idSerie: number): void {
+    this.usuarioService.getUltimoCapitulo(nombre, idSerie).subscribe(capitulo => {
+      this.ultimoCapituloVisto = capitulo;
     });
   }
 
@@ -87,15 +95,26 @@ export class SerieDetailsComponent implements OnInit {
     return false;
   }
 
+  esUltimoCapituloVisto(capitulo: Capitulo): boolean {
+    const cap = this.ultimoCapituloVisto;
+    if(cap) {
+      if(cap.numero == capitulo.numero && cap.numTemporada == this.temporadaActual?.numero) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   verCapitulo(capitulo: Capitulo): void {
     if (this.usuario && this.serie) {
       const nombreUsuario = this.usuario.nombre;
-      const serieId = this.serie.id;
+      const idSerie = this.serie.id;
       const numCapitulo = capitulo.numero;
 
       if(this.temporadaActual) {
-        this.usuarioService.verCapitulo(nombreUsuario, serieId, this.temporadaActual.numero , numCapitulo).subscribe(() => {
+        this.usuarioService.verCapitulo(nombreUsuario, idSerie, this.temporadaActual.numero , numCapitulo).subscribe(() => {
           this.getCapitulosVistos(nombreUsuario);
+          this.getUltimoCapituloVisto(nombreUsuario, idSerie);
         });
       }
     }

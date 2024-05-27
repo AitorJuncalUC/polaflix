@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   getUsuario(nombre: string): void {
     this.usuarioService.getUsuario(nombre).subscribe(usuario => {
       this.usuario = usuario;
-      console.log('Usuario:', this.usuario); // Intenta acceder a usuario aquí
+      console.log('Usuario:', this.usuario);
     });
   }
 

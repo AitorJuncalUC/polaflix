@@ -19,7 +19,7 @@ export class SeriesComponent implements OnInit {
   series: Serie[] = [];
   seriesFiltradas: Serie[] = [];
   busqueda: string = '';
-  diccionario: string[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  diccionario: string[] = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
   serieSeleccionada: Serie | null = null;
 
   constructor(private serieService: SerieService, private usuarioService: UsuarioService) { }

@@ -1,17 +1,24 @@
-<div class="serie-details-container">
+<div class="detalles">
   <div class="header">
-    <h2>{{ serie?.titulo }} - Temporada {{ temporadaActual?.numero }}</h2>
-    <div class="navigation-buttons">
+    <div class="navegacion">
       <button (click)="cambiarTemporada(-1)">&#9664;</button>
+      <h2>{{ serie?.titulo }} - Temporada {{ temporadaActual?.numero }}</h2>
       <button (click)="cambiarTemporada(1)">&#9654;</button>
     </div>
   </div>
 
-  <div class="capitulos-list">
+  <div class="listado">
     <div *ngFor="let capitulo of temporadaActual?.capitulos" class="capitulo-item">
       <span>{{ capitulo.numero }}. {{ capitulo.titulo }}</span>
       <button  (click)="verCapitulo(capitulo)">Ver capítulo</button>
-      <span [ngClass]="{ 'visto': esCapituloVisto(capitulo) }">{{ esCapituloVisto(capitulo) ? 'Visto' : 'Pendiente' }}</span>
+      <span *ngIf="esUltimoCapituloVisto(capitulo); else pendienteVisto">
+        <span class="ultimo-visto">Último Visto</span>
+      </span>
+      <ng-template #pendienteVisto>
+        <span [ngClass]="{ 'visto': esCapituloVisto(capitulo) }">
+          {{ esCapituloVisto(capitulo) ? 'Visto' : 'Pendiente' }}
+        </span>
+      </ng-template>
       <button class="descripcion-button" (click)="mostrarDescripcion(capitulo)">Descripción</button>
     </div>
   </div>
