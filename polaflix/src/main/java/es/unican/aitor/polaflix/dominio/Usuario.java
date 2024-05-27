@@ -141,7 +141,7 @@ public class Usuario {
 	
 	
 	public void anhadeSerie(Serie s) {
-		if(!seriesPendientes.contains(s) && s != null && !seriesEmpezadas.contains(s)) {
+		if(!seriesPendientes.contains(s) && s != null && !seriesEmpezadas.contains(s) && !seriesTerminadas.contains(s)) {
 			seriesPendientes.add(s);
 		}
 	}
