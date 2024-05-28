@@ -29,7 +29,6 @@ public class Factura {
 	private int id;
 	
 	@ElementCollection()
-	@OrderBy("fecha")
 	@JsonView({Views.FacturaView.class})
 	private List<Cargo> cargos;
 	
