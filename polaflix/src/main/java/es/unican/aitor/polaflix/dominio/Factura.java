@@ -9,13 +9,12 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.aitor.polaflix.servicio.Views;
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 
 @Entity
@@ -29,7 +28,7 @@ public class Factura {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@ElementCollection()
 	@OrderBy("fecha")
 	@JsonView({Views.FacturaView.class})
 	private List<Cargo> cargos;

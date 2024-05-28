@@ -6,18 +6,10 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.aitor.polaflix.servicio.Views;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.Embeddable;
 
-@Entity
+@Embeddable
 public class Cargo {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
 	@JsonView({Views.FacturaView.class})
 	private Date fecha;
 	@JsonView({Views.FacturaView.class})
@@ -97,7 +89,7 @@ public class Cargo {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(fecha, nombreSerie, numCapitulo, numTemporada);
 	}
 
 	@Override
@@ -109,6 +101,7 @@ public class Cargo {
 		if (getClass() != obj.getClass())
 			return false;
 		Cargo other = (Cargo) obj;
-		return id == other.id;
+		return Objects.equals(fecha, other.fecha) && Objects.equals(nombreSerie, other.nombreSerie)
+				&& numCapitulo == other.numCapitulo && numTemporada == other.numTemporada;
 	}
 }
