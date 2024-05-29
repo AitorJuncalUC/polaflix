@@ -52,12 +52,10 @@ public class AppFeeder implements CommandLineRunner {
 		Capitulo c2 = s2.getTemporadas().get(0).getCapitulos().get(0);
 		
 		u1.anhadeSerie(s1); u1.anhadeSerie(s2);
-		u1.comenzarSerie(s1); u1.comenzarSerie(s2);
 		u1.verCapitulo(c1); u1.verCapitulo(c2);
 		Factura f1 = u1.verFactura(anhoActual, mesActual);
 		
 		u2.anhadeSerie(s1);
-		u2.comenzarSerie(s1);
 		u2.verCapitulo(c1);
 		Factura f2 = u2.verFactura(anhoActual, mesActual);
 		

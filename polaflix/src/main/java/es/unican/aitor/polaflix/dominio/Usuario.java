@@ -145,16 +145,6 @@ public class Usuario {
 			seriesPendientes.add(s);
 		}
 	}
-	public void comenzarSerie(Serie s) {
-		if(!seriesPendientes.contains(s) && !seriesEmpezadas.contains(s)) {
-			anhadeSerie(s);
-		}
-		if(seriesPendientes.contains(s) && s != null){
-			seriesPendientes.remove(s);
-			seriesEmpezadas.add(s);
-			capitulosVistos.put(s.getId(), new CapitulosVistos(this));
-		}
-	}
 	
 	public void terminarSerie(Serie s) {
 		if(!seriesTerminadas.contains(s) && seriesEmpezadas.contains(s) && s != null) {
@@ -163,11 +153,21 @@ public class Usuario {
 		}
 	}
 	
+	public void comenzarSerie(Serie s) {
+		if(s!= null) {
+			seriesPendientes.remove(s);
+			seriesEmpezadas.add(s);
+			capitulosVistos.put(s.getId(), new CapitulosVistos(this));
+		}
+	}
+	
 	public void verCapitulo(Capitulo c) {
 		Serie serie = c.getTemporada().getSerie();
-		comenzarSerie(serie);
 		if(seriesTerminadas.contains(serie)) {
 			return;
+		}
+		if(seriesPendientes.contains(serie)) {
+			comenzarSerie(serie);
 		}
 		Categoria cat = serie.getCategoria();
 		capitulosVistos.get(serie.getId()).anhadeCapitulo(c);
@@ -177,13 +177,12 @@ public class Usuario {
 		calendario.setTime(ahora);
 		int anhoActual = calendario.get(Calendar.YEAR);
 		int mesActual = calendario.get(Calendar.MONTH);
+		Cargo cargo = new Cargo(ahora, serie.getTitulo(), c.getTemporada().getNumero(), c.getNumero(), cat);
 		if(facturas.size() > 0) {
 			Factura ultimaFactura = facturas.get(facturas.size()-1);
 			calendario.setTime(ultimaFactura.getFecha());
 			int anhoFactura = calendario.get(Calendar.YEAR);
 			int mesFactura = calendario.get(Calendar.MONTH);
-			
-			Cargo cargo = new Cargo(ahora, serie.getTitulo(), c.getTemporada().getNumero(), c.getNumero(), cat);
 			if(anhoFactura != anhoActual || mesFactura != mesActual) {
 				Factura factura = new Factura(ahora, this);
 				factura.anhadeCargo(cargo);
@@ -194,12 +193,12 @@ public class Usuario {
 			}
 		}
 		else {
-			Cargo cargo = new Cargo(ahora, serie.getTitulo(), c.getTemporada().getNumero(), c.getNumero(), cat);
 			Factura factura = new Factura(ahora, this);
 			factura.anhadeCargo(cargo);
 			facturas.add(factura);
 		}
 		
+		//COMPROBACION PARA ACABAR UNA SERIE
 		int capitulosTotales = 0;
 		for(Temporada temporada : serie.getTemporadas()) {
 			capitulosTotales += temporada.getCapitulos().size();
