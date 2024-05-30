@@ -143,6 +143,7 @@ public class Usuario {
 	public void anhadeSerie(Serie s) {
 		if(!seriesPendientes.contains(s) && s != null && !seriesEmpezadas.contains(s) && !seriesTerminadas.contains(s)) {
 			seriesPendientes.add(s);
+			capitulosVistos.put(s.getId(), new CapitulosVistos(this));
 		}
 	}
 	
@@ -157,17 +158,16 @@ public class Usuario {
 		if(s!= null) {
 			seriesPendientes.remove(s);
 			seriesEmpezadas.add(s);
-			capitulosVistos.put(s.getId(), new CapitulosVistos(this));
 		}
 	}
 	
 	public void verCapitulo(Capitulo c) {
 		Serie serie = c.getTemporada().getSerie();
-		if(seriesTerminadas.contains(serie)) {
-			return;
-		}
 		if(seriesPendientes.contains(serie)) {
 			comenzarSerie(serie);
+		}
+		if(capitulosVistos.get(serie.getId()).getCapitulos().contains(c)) {
+			return;
 		}
 		Categoria cat = serie.getCategoria();
 		capitulosVistos.get(serie.getId()).anhadeCapitulo(c);
@@ -199,12 +199,10 @@ public class Usuario {
 		}
 		
 		//COMPROBACION PARA ACABAR UNA SERIE
-		int capitulosTotales = 0;
-		for(Temporada temporada : serie.getTemporadas()) {
-			capitulosTotales += temporada.getCapitulos().size();
-		}
-		List<Capitulo> capitulos = capitulosVistos.get(serie.getId()).getCapitulos();
-		if(capitulosTotales == capitulos.size()) {
+		List<Temporada> temporadas = serie.getTemporadas();
+		List<Capitulo> ultimosCapitulos = temporadas.get(temporadas.size()-1).getCapitulos();
+		Capitulo ultimoCapitulo = ultimosCapitulos.get(ultimosCapitulos.size()-1);
+		if(c.equals(ultimoCapitulo)) {
 			terminarSerie(serie);
 		}
 	}
