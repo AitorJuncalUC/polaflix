@@ -1,0 +1,66 @@
+.navbar {
+  display: flex; /* Flexbox layout para la barra de navegación */
+  justify-content: space-between; /* Espacio entre los elementos de la barra de navegación */
+  align-items: center; /* Centra los elementos verticalmente */
+  padding: 10px; /* Espaciado interno de 10px */
+  background-color: #f0f0f0; /* Color de fondo gris claro */
+  border-bottom: 1px solid #ddd; /* Borde inferior gris claro */
+  margin-top: 15%; /* Margen superiorx */
+}
+
+.diccionario {
+  display: flex; /* Flexbox layout para el diccionario */
+}
+
+.diccionario button {
+  padding: 1%; /* Espaciado interno de 1% */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+.busqueda {
+  display: flex; /* Flexbox layout para la búsqueda */
+  align-items: center; /* Centra los elementos verticalmente */
+}
+
+.busqueda input {
+  padding: 2%; /* Espaciado interno en la barrita para buscar */
+}
+
+.series-list {
+  margin: 1% 0; /* Margen superior e inferior 1%, lateral 0 */
+}
+
+.serie-item {
+  display: flex; /* Flexbox layout para los ítems de la serie */
+  justify-content: space-between; /* Espacio entre los elementos de cada ítem de serie */
+  align-items: center; /* Centra los elementos verticalmente */
+  padding: 10px; /* Espaciado interno de 10px */
+  border-bottom: 1px solid #ddd; /* Borde inferior gris claro */
+  position: relative; /* Posicionamiento relativo */
+}
+
+.serie-item span {
+  cursor: pointer; /* Cambia el cursor al pasar sobre la serie */
+}
+
+.serie-info {
+  position: absolute; /* Posicionamiento absoluto */
+  top: 50%; /* Posiciona la parte superior en el 50% del contenedor */
+  left: 20%; /* Posiciona la parte izquierda en el 20% del contenedor */
+  background: white; /* Fondo blanco */
+  border: 1px solid #ccc; /* Borde gris claro */
+  padding: 10px; /* Espaciado interno de 10px */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera alrededor del elemento */
+  max-width: 400px; /* Ancho máximo de 400px */
+  z-index: 10; /* Z-index para superponer otros elementos */
+}
+
+.close-button {
+  position: absolute; /* Posicionamiento absoluto */
+  top: -5%; /* Posiciona la parte superior en -5% del contenedor */
+  right: 0%; /* Posiciona la parte derecha en 0% del contenedor */
+  background: transparent; /* Fondo transparente */
+  border: none; /* Sin borde */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  font-size: 20px; /* Tamaño de fuente de 20px */
+}

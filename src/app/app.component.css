@@ -1,0 +1,64 @@
+.top-navbar {
+  background-color: #444; /* Color de fondo del nuevo menú */
+  color: #fff; /* Color del texto */
+  display: flex; /* Flexbox para la alineación */
+  justify-content: space-between; /* Espacio entre elementos */
+  align-items: center; /* Centrar verticalmente */
+  padding: 10px 20px; /* Espaciado alrededor del contenido */
+  width: 100%; /* Ocupa todo el ancho */
+  top: 0; /* Posición en la parte superior */
+  left: 0; /* Posición a la izquierda */
+  z-index: 1001; /* Asegura que esté por encima de otros elementos */
+  position: fixed; /* Fija la barra en la parte superior */
+  font-size: 18px; /* Tamaño de fuente */
+  font-weight: bold; /* Texto en negrita */
+}
+
+.top-navbar .left,  .top-navbar .right {
+  display: flex; /* Flexbox para alineación horizontal */
+  align-items: center; /* Alinea los elementos verticalmente al centro */
+  flex : 1 /* Ocupa una parte del espacio disponible */
+}
+
+.top-navbar .right {
+  flex: 1; /* Ocupa una parte del espacio disponible */
+  justify-content: flex-end; /* Alinea los elementos al final del contenedor */
+}
+
+.top-navbar .logo, .top-navbar .perfil {
+  height: 60px; /* Aumenta la altura de los logos */
+  cursor: pointer; /* Cursor de puntero al pasar sobre el logo */
+  width: auto; /* Anchura automatica */
+  margin-right: 2%; /*Margen de la foto de perfil a la derecha */
+  margin-left: 0%; /*Margen del logo de polaflix a la izquierda */
+}
+
+
+.navbar {
+  background-color: #333; /* Color de fondo de la barra */
+  color: #fff; /* Color del texto */
+  position: fixed; /* Fija la barra en la parte superior */
+  width: 100%; /* Ocupa todo el ancho */
+  top: 10%; /* Sitúa la barra debajo del nuevo menú superior */
+  left: 0%;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+nav ul {
+  margin: 0; /* Elimina el margen por defecto */
+  padding: 0; /* Elimina el relleno por defecto */
+}
+
+nav ul li {
+  display: inline; /* Muestra las opciones del menú en línea */
+  margin-right: 20px; /* Añade un margen entre las opciones */
+}
+
+nav ul li a {
+  color: #fff; /* Color del texto de las opciones del menú */
+  text-decoration: none; /* Quita el subrayado de los enlaces */
+}
+
+nav ul li a:hover {
+  text-decoration: underline; /* Subraya el enlace al pasar el ratón */
+}

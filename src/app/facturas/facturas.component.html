@@ -1,0 +1,34 @@
+<div class="facturas">
+  <div class="navegacion">
+    <button (click)="mesAnterior()">&#9664;</button>
+    <h2>{{ mesActual }}</h2>
+    <button (click)="mesSiguiente()">&#9654;</button>
+  </div>
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Serie</th>
+          <th>Temporada</th>
+          <th>Episodio</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cargo of cargos">
+          <td>{{ cargo.fecha | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ cargo.nombreSerie }}</td>
+          <td>{{ cargo.numTemporada }}</td>
+          <td>{{ cargo.numCapitulo }}</td>
+          <td>{{ cargo.precio | currency }}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" class="total">Total</td>
+          <td>{{ getImporteTotal() | currency }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  
