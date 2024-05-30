@@ -20,7 +20,7 @@ export class SeriesComponent implements OnInit {
   seriesFiltradas: Serie[] = [];
   busqueda: string = '';
   diccionario: string[] = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
-  serieSeleccionada: Serie | null = null;
+  serieSeleccionada: Serie | undefined;
 
   constructor(private serieService: SerieService, private usuarioService: UsuarioService) { }
 
@@ -53,19 +53,12 @@ export class SeriesComponent implements OnInit {
     this.usuarioService.anhadeSerie(this.nombreUsuario, idSerie).subscribe();
   }
 
-  muestraInfo(serie: Serie): void {
+  mostrarInfo(serie : Serie) : void {
     this.serieSeleccionada = serie;
   }
 
-  ocultaInfo(): void {
-    this.serieSeleccionada = null;
+  ocultarInfo() : void {
+    this.serieSeleccionada = undefined;
   }
 
-  gestionInfo(serie: Serie): void {
-    if (this.serieSeleccionada && this.serieSeleccionada.id === serie.id) {
-      this.ocultaInfo();
-    } else {
-      this.serieSeleccionada = serie;
-    }
-  }
 }

@@ -6,17 +6,17 @@
       <input [(ngModel)]="busqueda" placeholder="Buscar series por título" />
       <button (click)="buscaSeries()">Buscar</button>
     </div>
-  </div>
+</div>
   
   <div class="series-list">
     <div *ngFor="let serie of seriesFiltradas" class="serie-item">
-      <span (click)="gestionInfo(serie)">{{ serie.titulo }}</span>
+      <span (click)="mostrarInfo(serie)">{{ serie.titulo }}</span>
       <button (click)="anhadeSerie(serie.id)">Agregar</button>
     </div>
   </div>
   
   <div *ngIf="serieSeleccionada" class="serie-info">
-    <button class="close-button" (click)="ocultaInfo()">X</button>
+    <button class="close-button" (click)="ocultarInfo()">X</button>
     <h3>{{ serieSeleccionada.titulo }}</h3>
     <p>{{ serieSeleccionada.sinopsis }}</p>
     <p>Autores: {{ serieSeleccionada.autores.join(', ') }}</p>

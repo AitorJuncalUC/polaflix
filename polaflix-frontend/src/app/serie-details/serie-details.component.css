@@ -10,8 +10,19 @@
   }
   
   .navegacion {
+    align-items: center;
+    margin-left: 30%;
     display: flex;
     gap: 10px;
+    width: 100%; /* Hace que la navegación ocupe todo el ancho */
+  }
+
+
+  .categoria {
+    margin-left: auto; /* Empuja la categoría hacia la derecha */
+    padding: 1px 10px; /* Añade algo de espacio interno */
+    background-color: #f0f0f0; /* Color de fondo gris claro */
+    border: 1px solid #ddd; /* Borde gris claro */
   }
   
   .listado {
