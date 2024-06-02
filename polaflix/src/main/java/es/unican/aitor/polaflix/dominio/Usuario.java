@@ -141,24 +141,23 @@ public class Usuario {
 	
 	
 	public void anhadeSerie(Serie s) {
-		if(!seriesPendientes.contains(s) && s != null && !seriesEmpezadas.contains(s) && !seriesTerminadas.contains(s)) {
+		if(!seriesPendientes.contains(s) && !seriesEmpezadas.contains(s) && !seriesTerminadas.contains(s)) {
 			seriesPendientes.add(s);
 			capitulosVistos.put(s.getId(), new CapitulosVistos(this));
 		}
 	}
 	
 	public void terminarSerie(Serie s) {
-		if(!seriesTerminadas.contains(s) && seriesEmpezadas.contains(s) && s != null) {
+		if(!seriesTerminadas.contains(s) && seriesEmpezadas.contains(s)) {
 			seriesEmpezadas.remove(s);
 			seriesTerminadas.add(s);
 		}
 	}
 	
 	public void comenzarSerie(Serie s) {
-		if(s!= null) {
-			seriesPendientes.remove(s);
-			seriesEmpezadas.add(s);
-		}
+		seriesPendientes.remove(s);
+		seriesEmpezadas.add(s);
+
 	}
 	
 	public void verCapitulo(Capitulo c) {

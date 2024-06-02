@@ -75,6 +75,7 @@ public class UsuarioController {
         	}
         	facturas.add(factura);
         }
+        
         if (facturas == null) {
         	return ResponseEntity.badRequest().build();
         }
@@ -126,7 +127,7 @@ public class UsuarioController {
 	@Transactional
 	public ResponseEntity<Usuario> anhadeSerie(@PathVariable String nombre, 
 			@RequestParam("idSerie") int idSerie) {
-		Usuario usuario = getUsuario(nombre).getBody();
+		Usuario usuario = us.getUsuarioByNombre(nombre);
 		int numPendientesAntes = usuario.getSeriesPendientes().size();
 		us.addSeriePendiente(nombre, idSerie);
 		int numPendientesDespues = usuario.getSeriesPendientes().size();
