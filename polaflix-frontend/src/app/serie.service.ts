@@ -16,7 +16,7 @@ export class SerieService {
 
   constructor(private http: HttpClient) { }
 
-  /** GET series */
+  //GET series
   getSeries(titulo?: string, inicial?: string): Observable<Serie[]> {
     let url = this.url;
     if (titulo) {
@@ -31,7 +31,7 @@ export class SerieService {
       );
   }
 
-  /** GET serie/id */
+  //GET series/{id}
   getSerie(id: number): Observable<Serie> {
     const url = `${this.url}/${id}`;
     return this.http.get<Serie>(url).pipe(
@@ -42,7 +42,7 @@ export class SerieService {
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
-      console.error(error); // log to console instead
+      console.error(error);
       this.log(`${operation} failed: ${error.message}`);
       return of(result as T);
     };

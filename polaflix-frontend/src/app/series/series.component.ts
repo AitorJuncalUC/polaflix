@@ -39,7 +39,7 @@ export class SeriesComponent implements OnInit {
     this.seriesFiltradas = this.series.filter(serie => serie.titulo.startsWith(inicial));
   }
 
-  buscaSeries(): void {
+  buscaSerie(): void {
     if (this.busqueda) {
       this.serieService.getSeries(this.busqueda).subscribe(series => {
         this.seriesFiltradas = series;

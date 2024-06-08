@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../usuario.service';
 import { Serie, Usuario } from '../interfaces';
 import { Router, RouterModule} from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor} from '@angular/common';
 
 @Component({
-  imports: [RouterModule, NgFor, NgIf],
+  imports: [RouterModule, NgFor],
   standalone: true,
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',

@@ -20,12 +20,9 @@ export class SerieDetailsComponent implements OnInit {
   temporadaActual: Temporada | undefined;
   selectedCapitulo: Capitulo | undefined;
   ultimoCapituloVisto: Capitulo | undefined;
+  indice : number = 0;
 
-  constructor(
-    private route: ActivatedRoute,
-    private usuarioService: UsuarioService,
-    private serieService: SerieService
-  ) { }
+  constructor(private route: ActivatedRoute, private usuarioService: UsuarioService, private serieService: SerieService) {}
 
   ngOnInit(): void {
     const idSerie = Number(this.route.snapshot.paramMap.get('id'));
@@ -39,7 +36,7 @@ export class SerieDetailsComponent implements OnInit {
   getSerie(serieId: number): void {
     this.serieService.getSerie(serieId).subscribe(serie => {
       this.serie = serie;
-      this.temporadaActual = this.serie.temporadas[0];
+      this.temporadaActual = this.serie.temporadas[this.indice];
     });
   }
 
@@ -71,11 +68,19 @@ export class SerieDetailsComponent implements OnInit {
     return map;
   }
 
-  cambiarTemporada(offset: number): void {
+  anteriorTemporada() : void {
+    if (this.serie && this.temporadaActual && this.indice > 0) {
+      this.indice -= 1;
+      this.temporadaActual = this.serie.temporadas[this.indice];
+    }
+  }
+
+  siguienteTemporada() : void {
     if (this.serie && this.temporadaActual) {
-      const newIndex = this.serie.temporadas.indexOf(this.temporadaActual) + offset;
-      if (newIndex >= 0 && newIndex < this.serie.temporadas.length) {
-        this.temporadaActual = this.serie.temporadas[newIndex];
+      const numTemporadas = this.serie.temporadas.length;
+      if(this.indice < numTemporadas-1) {
+        this.indice += 1;
+        this.temporadaActual = this.serie.temporadas[this.indice];
       }
     }
   }

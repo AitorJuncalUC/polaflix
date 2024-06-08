@@ -5,7 +5,7 @@
 }
 
 .listado {
-  width: 80%; /* Define que el ancho de lascajas */
+  width: 80%; /* Define que el ancho de las cajas */
   margin: 20px auto; /* Añade un margen de 20px en la parte superior e inferior, y centra el elemento horizontalmente. */
   padding: 20px; /* Añade un relleno de 20px dentro del elemento para separar el contenido de los bordes. */
   border: 1px solid #ccc; /* Añade un borde de 1px sólido y de color gris claro (#ccc) alrededor del elemento. */

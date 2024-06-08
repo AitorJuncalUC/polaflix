@@ -6,8 +6,6 @@ export interface Usuario {
     seriesPendientes: Serie[];
     seriesEmpezadas: Serie[];
     seriesTerminadas: Serie[];
-    facturas: Factura[];
-    capitulosVistos: Map<number, CapitulosVistos>;
   }
   
   export interface Serie {
@@ -24,7 +22,6 @@ export interface Usuario {
   export interface Temporada {
     numero: number;
     id: number;
-    serie: Serie;
     capitulos: Capitulo[];
   }
   
@@ -33,13 +30,10 @@ export interface Usuario {
     numero: number;
     numTemporada: number;
     tituloSerie: string;
-    id: number;
     descripcion: string;
-    temporada: Temporada;
   }
   
   export interface CapitulosVistos {
-    id: number;
     usuario: Usuario;
     capitulos: Capitulo[];
   }
@@ -47,13 +41,10 @@ export interface Usuario {
   export interface Factura {
     fecha: Date;
     importeTotal: number;
-    id: number;
     cargos: Cargo[];
-    usuario: Usuario;
   }
   
   export interface Cargo {
-    id: number;
     fecha: Date;
     precio: number;
     nombreSerie: string;

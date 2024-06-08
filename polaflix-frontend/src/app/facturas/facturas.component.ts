@@ -38,7 +38,10 @@ export class FacturasComponent implements OnInit {
   }
 
   getImporteTotal(): number {
-    return this.cargos.reduce((total, cargo) => total + cargo.precio, 0);
+    if (this.facturas.length > 0) {
+      return this.facturas[0].importeTotal;
+    }
+    return 0.0;
   }
 
 

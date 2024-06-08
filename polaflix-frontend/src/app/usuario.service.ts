@@ -17,7 +17,7 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
-  /** GET usuarios */
+  //GET usuarios
   getUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.url)
       .pipe(
@@ -26,7 +26,7 @@ export class UsuarioService {
       );
   }
 
-  /** GET usuario/nombre */
+  //GET usuarios/{nombre}
   getUsuario(nombre: string): Observable<Usuario> {
     const url = `${this.url}/${nombre}`;
     return this.http.get<Usuario>(url).pipe(
@@ -35,9 +35,12 @@ export class UsuarioService {
     );
   }
 
-  /** GET facturas */
+  //GET usuarios/{nombre}/facturas
   getFacturas(nombre: string, fecha?: string): Observable<Factura[]> {
-    const url = fecha ? `${this.url}/${nombre}/facturas?fecha=${fecha}` : `${this.url}/${nombre}/facturas`;
+    let url = `${this.url}/${nombre}/facturas`;
+    if(fecha) {
+      url = `${this.url}/${nombre}/facturas?fecha=${fecha}`;
+    }
     return this.http.get<Factura[]>(url).pipe(
       tap(_ => this.log(`fetched facturas for usuario nombre=${nombre}`)),
       catchError(this.handleError<Factura[]>(`getFacturas nombre=${nombre}`, []))
@@ -45,7 +48,7 @@ export class UsuarioService {
   }
 
 
-  /** GET capitulosVistos*/
+  //GET usuarios/{nombre}/capitulosVistos
   getCapitulosVistos(nombre: string): Observable<Map<number, CapitulosVistos>> {
     const url = `${this.url}/${nombre}/capitulosVistos`;
     return this.http.get<Map<number, CapitulosVistos>>(url).pipe(
@@ -54,7 +57,7 @@ export class UsuarioService {
     );
   }
 
-  /** PUT capitulosVistos */
+  //PUT usuarios/{nombre}/capitulosVistos
   verCapitulo(nombre: string, idSerie: number, numTemporada: number, numCapitulo: number): Observable<Capitulo> {
     const url = `${this.url}/${nombre}/capitulosVistos?idSerie=${idSerie}&numTemporada=${numTemporada}&numCapitulo=${numCapitulo}`;
     return this.http.put<Capitulo>(url, this.httpOptions).pipe(
@@ -63,7 +66,7 @@ export class UsuarioService {
     );
   }
 
-  /** GET ultimo capitulo visto de una serie */
+  //GET usuarios/{nombre}/capitulosVistos/ultimoVisto
   getUltimoCapitulo(nombre: string, idSerie: number): Observable<Capitulo> {
     const url = `${this.url}/${nombre}/capitulosVistos/ultimoVisto?idSerie=${idSerie}`;
     return this.http.get<Capitulo>(url).pipe(
@@ -72,7 +75,7 @@ export class UsuarioService {
     );
   }
 
-  /** PUT: anhade serie pendiente */
+  //PUT usuarios/{nombre}/seriesPendientes
   anhadeSerie(nombre: string, idSerie: number): Observable<Usuario> {
     const url = `${this.url}/${nombre}/seriesPendientes?idSerie=${idSerie}`;
     return this.http.put<Usuario>(url, this.httpOptions).pipe(
