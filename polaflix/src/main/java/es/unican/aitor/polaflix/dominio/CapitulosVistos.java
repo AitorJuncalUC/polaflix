@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import es.unican.aitor.polaflix.servicio.Views;
@@ -21,6 +22,7 @@ public class CapitulosVistos {
 	private int id;
 	
 	@ManyToOne()
+	@JsonBackReference
 	private Usuario usuario;
 	
 	@ManyToMany()

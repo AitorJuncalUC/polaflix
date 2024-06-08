@@ -166,7 +166,7 @@ public class AppFeeder implements CommandLineRunner {
 		ArrayList<String> autores4 = new ArrayList<String>();
 		autores4.add("Vince Gilligan");
 		actores4.add("Bryan Cranston"); actores4.add("Aaron Paul"); actores4.add("Anna Gunn");
-		s4 = new Serie("Breaking Bad", "sigue la transformación de Walter White, un profesor de química que se convierte en fabricante de metanfetaminas, mientras enfrenta a diversos enemigos en el mundo del narcotráfico.", Categoria.GOLD, temporadas4, actores4, autores4);
+		s4 = new Serie("Breaking Bad", "sigue la transformación de Walter White, un profesor de química que se convierte en fabricante de metanfetaminas, mientras enfrenta a diversos enemigos en el mundo del narcotráfico.", Categoria.SILVER, temporadas4, actores4, autores4);
 
 		Temporada t41, t42;
 		List<Capitulo> capitulos41 = new ArrayList<Capitulo>();
