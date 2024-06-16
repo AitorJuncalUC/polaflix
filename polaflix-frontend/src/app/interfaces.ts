@@ -1,7 +1,5 @@
 export interface Usuario {
     nombre: string;
-    contrasenha: string;
-    IBAN: string;
     premium: boolean;
     seriesPendientes: Serie[];
     seriesEmpezadas: Serie[];

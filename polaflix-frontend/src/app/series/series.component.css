@@ -64,3 +64,12 @@
   cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
   font-size: 20px; /* Tamaño de fuente de 20px */
 }
+
+.error {
+  color: red;
+  background-color: #fdd;
+  border: 1px solid red;
+  padding: 10px;
+  margin: 10px 0;
+  text-align: center;
+}

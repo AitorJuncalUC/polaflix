@@ -13,15 +13,16 @@ import { UsuarioService } from '../usuario.service';
 })
 
 export class FacturasComponent implements OnInit {
-  facturas: Factura[] = [];
-  cargos: Cargo[] = [];
-  mesActual: string = '';
-  nombreUsuario : string = 'Paco';
+  private facturas: Factura[] = [];
+  public cargos: Cargo[] = [];
+  public mesActual: string = '';
+  private nombreUsuario: string = '';
 
   constructor(private usuarioService: UsuarioService) {}
 
   ngOnInit() {
     this.mesActual = this.getMesActual();
+    this.nombreUsuario = this.usuarioService.getNombreUsuario();
     this.getFacturas(this.nombreUsuario, this.mesActual);
   }
 
@@ -29,7 +30,6 @@ export class FacturasComponent implements OnInit {
     this.usuarioService.getFacturas(nombre, fecha).subscribe(facturas => {
       this.facturas = facturas;
       this.cargos = this.getCargos(facturas);
-      console.log('Facturas:', this.facturas);
     });
   }
 

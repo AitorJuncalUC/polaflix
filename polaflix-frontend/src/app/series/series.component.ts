@@ -15,16 +15,18 @@ import { FormsModule } from '@angular/forms';
 })
 
 export class SeriesComponent implements OnInit {
-  nombreUsuario: string = 'Paco';
-  series: Serie[] = [];
-  seriesFiltradas: Serie[] = [];
-  busqueda: string = '';
-  diccionario: string[] = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
-  serieSeleccionada: Serie | undefined;
+  private nombreUsuario: string = '';
+  private series: Serie[] = [];
+  public seriesFiltradas: Serie[] = [];
+  public busqueda: string = '';
+  public diccionario: string[] = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
+  public serieSeleccionada: Serie | undefined;
+  public mensajeError: string = '';
 
   constructor(private serieService: SerieService, private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
+    this.nombreUsuario = this.usuarioService.getNombreUsuario();
     this.getSeries();
   }
 
@@ -37,15 +39,23 @@ export class SeriesComponent implements OnInit {
 
   getSeriesByInicial(inicial: string): void {
     this.seriesFiltradas = this.series.filter(serie => serie.titulo.startsWith(inicial));
+    this.mensajeError = '';
+    if (this.seriesFiltradas.length === 0) {
+      this.mensajeError = `No hay ninguna serie que comience con la letra ${inicial}`;
+    }
   }
 
   buscaSerie(): void {
     if (this.busqueda) {
+      this.mensajeError = '';
       this.serieService.getSeries(this.busqueda).subscribe(series => {
         this.seriesFiltradas = series;
+        if (this.seriesFiltradas.length === 0) {
+          this.mensajeError = `No se encontraron series para la búsqueda "${this.busqueda}"`;
+        }
       });
     } else {
-      this.seriesFiltradas = this.series;
+      this.seriesFiltradas = this.series; 
     }
   }
 

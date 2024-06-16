@@ -22,4 +22,8 @@
     <p>Autores: {{ serieSeleccionada.autores.join(', ') }}</p>
     <p>Actores: {{ serieSeleccionada.actores.join(', ') }}</p>
   </div>
+
+<div *ngIf="mensajeError" class="error">
+  {{ mensajeError }}
+</div>
   

@@ -9,13 +9,18 @@ import { Usuario, Factura, Capitulo, CapitulosVistos } from './interfaces';
 })
 
 export class UsuarioService {
-  private url = 'http://localhost:8080/usuarios';  
+  private url = 'http://localhost:8080/usuarios'; 
+  private nombreUsuario: string = 'Paco';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
   constructor(private http: HttpClient) { }
+
+  getNombreUsuario(): string {
+    return this.nombreUsuario;
+  }
 
   //GET usuarios
   getUsuarios(): Observable<Usuario[]> {

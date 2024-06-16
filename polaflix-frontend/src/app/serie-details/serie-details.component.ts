@@ -14,13 +14,13 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
 })
 
 export class SerieDetailsComponent implements OnInit {
-  serie: Serie | undefined;
-  usuario: Usuario | undefined;
-  capitulosVistos: Map<number, CapitulosVistos> = new Map();
-  temporadaActual: Temporada | undefined;
-  selectedCapitulo: Capitulo | undefined;
-  ultimoCapituloVisto: Capitulo | undefined;
-  indice : number = 0;
+  public serie: Serie | undefined;
+  private usuario: Usuario | undefined;
+  private capitulosVistos: Map<number, CapitulosVistos> = new Map();
+  public temporadaActual: Temporada | undefined;
+  public selectedCapitulo: Capitulo | undefined;
+  private ultimoCapituloVisto: Capitulo | undefined;
+  private indice : number = 0;
 
   constructor(private route: ActivatedRoute, private usuarioService: UsuarioService, private serieService: SerieService) {}
 
