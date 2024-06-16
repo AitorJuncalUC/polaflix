@@ -21,9 +21,8 @@ public class Usuario {
 	@JsonView({Views.UsuarioView.class})
 	private String nombre;
 	
-	@JsonView({Views.UsuarioView.class})
 	private String contrasenha;
-	@JsonView({Views.UsuarioView.class})
+
 	private String IBAN;
 	@JsonView({Views.UsuarioView.class})
 	private boolean premium;

@@ -16,6 +16,7 @@ import es.unican.aitor.polaflix.dominio.Temporada;
 import es.unican.aitor.polaflix.dominio.Usuario;
 import es.unican.aitor.polaflix.repositorios.SerieRepository;
 import es.unican.aitor.polaflix.repositorios.UsuarioRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioService {
@@ -57,12 +58,17 @@ public class UsuarioService {
 	}
 	
 	
-	public void addSeriePendiente(String nombre, int idSerie){
+	@Transactional
+	public boolean addSeriePendiente(String nombre, int idSerie){
 		Usuario usuario = getUsuarioByNombre(nombre);
 		Serie s = sr.findById(idSerie).get();
+		int numPendientesAntes = usuario.getSeriesPendientes().size();
 		usuario.anhadeSerie(s);
+		int numPendientesDespues = usuario.getSeriesPendientes().size();
+		return numPendientesAntes != numPendientesDespues;
 	}
-
+	
+	@Transactional
 	public Capitulo addCapituloVisto(String nombre, int idSerie, int numTemporada, int numCapitulo) {
 		Usuario u = getUsuarioByNombre(nombre);
 		Serie s = sr.findById(idSerie).get();
@@ -86,8 +92,13 @@ public class UsuarioService {
 	
 	public Capitulo ultimoCapituloVistoSerie(String nombre, int idSerie) {
 		Usuario usuario = getUsuarioByNombre(nombre);
-		List<Capitulo> capitulosVistos = usuario.getCapitulosVistos().get(idSerie).getCapitulos();
-		Capitulo ultimoCapitulo = capitulosVistos.get(capitulosVistos.size()-1);
+		Capitulo ultimoCapitulo = null;
+		try {
+			List<Capitulo> capitulosVistos = usuario.getCapitulosVistos().get(idSerie).getCapitulos();
+			ultimoCapitulo = capitulosVistos.get(capitulosVistos.size()-1);
+		} catch(Exception e) {
+			System.out.println("El usuario aun no ha visto ningún capítulo de esta serie");
+		}
 		return ultimoCapitulo;
 	}
 }

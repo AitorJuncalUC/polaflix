@@ -6,8 +6,6 @@ Modelo de Respuesta:
 [
     {
         "nombre": "Paco",
-        "contrasenha": "1234",
-        "IBAN": "iban",
         "premium": false,
         "seriesPendientes": [],
         "seriesEmpezadas": [
@@ -24,8 +22,6 @@ Modelo de Respuesta:
     },
     {
         "nombre": "Lola",
-        "contrasenha": "12345",
-        "IBAN": "iban2",
         "premium": true,
         "seriesPendientes": [],
         "seriesEmpezadas": [
@@ -46,8 +42,6 @@ Respuestas: 200 Ok, 404 Not Found, 500 Internal Server Error
 Modelo de Respuesta:
 	{
 		"nombre": "Paco",
-		"contrasenha": "1234",
-		"iban": "iban",
 		"premium": false,
 		"seriesPendientes": [],
 		"seriesEmpezadas": 
@@ -102,12 +96,10 @@ Recurso: /usuarios/{nombre}/seriesPendientes
 Verbos Aceptados: PUT
 PUT /serie - Añade una serie del catalo a la lista de seriesPendientes del usuario.
 parametro : idSerie, id de la serie a añadir.
-Respuestas: 200 Ok, 400 Bad Request, 500 Internal Server Error
+Respuestas: 200 Ok, 404 Not Found, 500 Internal Server Error
 Modelo de Respuesta:
 {
     "nombre": "Lola",
-    "contrasenha": "12345",
-    "IBAN": "iban2",
     "premium": true,
     "seriesPendientes": [
         {

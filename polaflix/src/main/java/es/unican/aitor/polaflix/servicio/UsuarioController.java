@@ -23,7 +23,6 @@ import es.unican.aitor.polaflix.dominio.Capitulo;
 import es.unican.aitor.polaflix.dominio.CapitulosVistos;
 import es.unican.aitor.polaflix.dominio.Factura;
 import es.unican.aitor.polaflix.dominio.Usuario;
-import jakarta.transaction.Transactional;
 
 
 @RestController
@@ -98,7 +97,6 @@ public class UsuarioController {
 	
 	@PutMapping("/{nombre}/capitulosVistos")
 	@JsonView({Views.CapituloVistoView.class})
-	@Transactional
 	public ResponseEntity<Capitulo> verCapitulo(@PathVariable String nombre, 
 			@RequestParam("idSerie") int idSerie, @RequestParam("numTemporada") int numTemporada, @RequestParam("numCapitulo") int numCapitulo) {
 		Capitulo capitulo = us.addCapituloVisto(nombre, idSerie, numTemporada, numCapitulo);
@@ -124,14 +122,11 @@ public class UsuarioController {
 	
 	@PutMapping("/{nombre}/seriesPendientes")
 	@JsonView({Views.UsuarioView.class})
-	@Transactional
 	public ResponseEntity<Usuario> anhadeSerie(@PathVariable String nombre, 
 			@RequestParam("idSerie") int idSerie) {
 		Usuario usuario = us.getUsuarioByNombre(nombre);
-		int numPendientesAntes = usuario.getSeriesPendientes().size();
-		us.addSeriePendiente(nombre, idSerie);
-		int numPendientesDespues = usuario.getSeriesPendientes().size();
-		if (numPendientesAntes == numPendientesDespues) {
+		boolean correcto = us.addSeriePendiente(nombre, idSerie);
+		if (!correcto) {
 			return ResponseEntity.notFound().build();
         }
         else {
